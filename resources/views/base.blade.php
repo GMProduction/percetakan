@@ -15,7 +15,10 @@
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/myStyle.css') }}" type="text/css">
-
+    <link rel="stylesheet" href="{{ asset('css/gambar.css') }}" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick-theme.css') }}"/>
+                    
 
 </head>
 
@@ -37,13 +40,17 @@
                 <div class="collapse navbar-collapse " id="navbarToggler">
                     <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="#">Beranda</a>
                         </li>
 
 
 
                         <li class="nav-item">
-                            <a class="nav-link" href="https://udb.ac.id/">About Us</a>
+                            <a class="nav-link" href="https://udb.ac.id/">Belanja</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://udb.ac.id/">Tentang Kami</a>
                         </li>
 
                     
@@ -78,6 +85,9 @@
     </header>
     <main>
         <div class="content-wrapper">
+            <a class="tombol-wa">
+                <img src="{{ asset('static-image/WhatsApp.png') }}"/>
+            </a>
             @yield('content')
         </div>
     </main>
@@ -192,9 +202,8 @@
 
     <script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('js/hero-slider.js') }}"></script>
-    {{-- <script src="{{ asset('js/myStyle.js') }}"></script> --}}
-
+    <script type="text/javascript" src="{{ asset('slick/slick.min.js') }}"></script>
+    @yield('script')
 
 
 

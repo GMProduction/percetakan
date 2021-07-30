@@ -27,6 +27,10 @@ Route::get('/register-page', function () {
     return view('registerPage');
 });
 
+Route::get('/detail', function () {
+    return view('detail');
+});
+
 Route::get('/user', function () {
     return view('user/dashboard');
 });
