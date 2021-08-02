@@ -1,7 +1,7 @@
 @extends('admin.base')
 
 @section('title')
-    Data Mapel
+    Data Barang
 @endsection
 
 @section('content')
@@ -14,13 +14,14 @@
 
     <section class="m-2">
 
+
         <div class="table-container">
 
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5>Data Mapel</h5>
+                <h5>Data Barang</h5>
                 <button type="button ms-auto" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#tambahmapel">Tambah Data Mapel</button>
+                    data-bs-target="#tambahbarang">Tambah Data</button>
             </div>
 
 
@@ -30,10 +31,14 @@
                         #
                     </th>
                     <th>
-                        nama Mapel
+                        nama Barang
                     </th>
                     <th>
-                        Guru
+                        Jumlah
+                    </th>
+
+                    <th>
+                        Stock
                     </th>
 
                     <th>
@@ -47,15 +52,16 @@
                         1
                     </td>
                     <td>
-                        Matematika
+                        Bola Kasti
                     </td>
                     <td>
-                        Erfin
+                        8
                     </td>
-
+                    <td>
+                        5
                     <td>
                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#editmapel">Ubah</button>
+                            data-bs-target="#editbarang">Ubah</button>
                         <button type="button" class="btn btn-danger btn-sm" onclick="hapus('id', 'nama') ">hapus</button>
                     </td>
                 </tr>
@@ -69,31 +75,23 @@
 
 
             <!-- Modal Tambah-->
-            <div class="modal  fade" id="tambahmapel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
+            <div class="modal fade" id="tambahbarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Mapel</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form>
-
-
                                 <div class="mb-3">
-                                    <label for="namamapel" class="form-label">Nama Mapel</label>
-                                    <input type="text" class="form-control" id="namamapel">
+                                    <label for="namabarang" class="form-label">Nama Barang</label>
+                                    <input type="email" class="form-control" id="namabarang">
                                 </div>
-
-
-                                
-                                <a>Pilih Guru</a>
-                                <select class="form-select" aria-label="Default select example" name="idguru">
-                                    <option selected>Mata Pelajaran</option>
-                                    <option value="1">Erfin</option>
-                                    <option value="2">Joko A</option>
-                                    <option value="3">Joko B</option>
-                                </select>
+                                <div class="mb-3">
+                                    <label for="jumlah" class="form-label">Jumlah</label>
+                                    <input type="number" class="form-control" id="jumlah">
+                                </div>
 
                                 <div class="mb-4"></div>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -105,30 +103,23 @@
             </div>
 
             <!-- Modal Edit-->
-            <div class="modal  fade" id="editmapel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
+            <div class="modal fade" id="editbarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Mapel</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Barang</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form>
-
-
                                 <div class="mb-3">
-                                    <label for="namamapel" class="form-label">Nama Mapel</label>
-                                    <input type="text" class="form-control" id="namamapel">
+                                    <label for="namaeditbarang" class="form-label">Nama Barang</label>
+                                    <input type="email" class="form-control" id="namaeditbarang">
                                 </div>
-
-
-                                <a>Pilih Guru</a>
-                                <select class="form-select" aria-label="Default select example" name="idguru">
-                                    <option selected>Mata Pelajaran</option>
-                                    <option value="1">Erfin</option>
-                                    <option value="2">Joko A</option>
-                                    <option value="3">Joko B</option>
-                                </select>
+                                <div class="mb-3">
+                                    <label for="jumlahedit" class="form-label">Jumlah</label>
+                                    <input type="number" class="form-control" id="jumlahedit">
+                                </div>
 
                                 <div class="mb-4"></div>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -169,9 +160,5 @@
                 });
         }
     </script>
-    <script>
-        $(function() {
-            $("#datepicker").datepicker();
-        });
-    </script>
+
 @endsection

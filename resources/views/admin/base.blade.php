@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bootstrap 5 Side Bar Navigation</title>
+    <title>Percetakan</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,7 +32,7 @@
     <div class="side-navbar active-nav d-flex justify-content-between  flex-wrap flex-column" id="sidebar">
         <ul class="nav flex-column text-white w-100 h-100">
             <a href="#" class="nav-link h3 text-white my-2">
-                SMK 5
+                Percetakan
             </a>
 
 
@@ -44,49 +44,35 @@
                 </li>
             </a>
 
-            <a href="/admin/barang">
+            <a href="/admin/produk">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bxs-cube"></i>
-                    <span class="mx-2">Master Barang</span>
+                    <span class="mx-2">Master Produk</span>
                 </li>
             </a>
 
 
-            <a href="/admin/guru">
+            <a href="/admin/pelanggan">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bxs-group"></i>
-                    <span class="mx-2">Data Guru</span>
+                    <span class="mx-2">Data Pelanggan</span>
                 </li>
 
             </a>
 
 
-            <a href="/admin/siswa">
+            <a href="/admin/pesanan">
                 <li href="#" class="nav-link t-white">
-                    <i class="bx bxs-happy-beaming"></i>
-                    <span class="mx-2">Data Siswa</span>
+                    <i class="bx bxs-file"></i>
+                    <span class="mx-2">Data Pesanan</span>
                 </li>
 
             </a>
 
-            <a href="/admin/mapel">
-                <li href="#" class="nav-link t-white">
-                    <i class="bx bxs-book-bookmark"></i>
-                    <span class="mx-2">Data Mapel</span>
-                </li>
-
-            </a>
+           
 
 
-            <a href="/admin/laporanpinjaman" class="mb-auto">
-                <li href="#" class="nav-link t-white">
-                    <i class="bx bx-file"></i>
-                    <span class="mx-2">Laporan Peminjam</span>
-                </li>
-            </a>
-
-
-            <a href="/logout">
+            <a href="/logout" class="mt-auto">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bx-link-external"></i>
                     <span class="mx-2">Logout</span>

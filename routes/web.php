@@ -39,25 +39,19 @@ Route::get('/admin', function () {
     return view('admin/dashboard');
 });
 
-Route::get('/admin/barang', function () {
-    return view('admin/barang/barang');
+Route::get('/admin/produk', function () {
+    return view('admin/produk/produk');
 });
 
-Route::get('/admin/guru', function () {
-    return view('admin/guru/guru');
+Route::get('/admin/pelanggan', function () {
+    return view('admin/pelanggan/pelanggan');
 });
 
-Route::get('/admin/siswa', function () {
-    return view('admin/siswa/siswa');
+Route::get('/admin/pesanan', function () {
+    return view('admin/pesanan/pesanan');
 });
 
-Route::get('/admin/mapel', function () {
-    return view('admin/mapel/mapel');
-});
 
-Route::get('/admin/laporanpinjaman', function () {
-    return view('admin/laporan/pinjamalat');
-});
 
 
 Route::post('/register',[AuthController::class,'register']);

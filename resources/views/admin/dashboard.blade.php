@@ -1,6 +1,6 @@
 @extends('admin.base')
 @section('title')
-Dashboard
+    Dashboard
 @endsection
 @section('content')
 
@@ -9,104 +9,7 @@ Dashboard
 
         <div class="table-container">
 
-            <h5 class="mb-3">Permintaan peminjaman barang</h5>
-    
-                <table class="table table-striped table-bordered ">
-                    <thead>
-                        <th>
-                            #
-                        </th>
-                        <th>
-                            Tanggal Pinjam
-                        </th>
-                        <th>
-                            Nama Barang
-                        </th>
-                        <th>
-                            Jumlah Pinjam
-                        </th>
-    
-                        <th>
-                            Nama Siswa
-                        </th>
-    
-                        <th>
-                            Mapel
-                        </th>
-    
-                        <th>
-                            Status
-                        </th>
-    
-                        <th>
-                            Action
-                        </th>
-
-                    </thead>
-    
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            25 Juli 2021
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            bola Basket
-                        </td>
-                        <td>
-                            Topik
-                        </td>
-                        <td>
-                            Kimia
-                        </td>
-                        <td>
-                            Dipinjam
-                        </td>
-
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm">Terima</button>
-                            <button type="button" class="btn btn-danger btn-sm">Tolak</button>
-                        </td>
-                    </tr>
-    
-                    <tr>
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            25 Juli 2021
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            bola Basket
-                        </td>
-                        <td>
-                            Bagus
-                        </td>
-                        <td>
-                            Kimia
-                        </td>
-                        <td>
-                            Dipinjam
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm">Terima</button>
-                            <button type="button" class="btn btn-danger btn-sm">Tolak</button>
-                        </td>
-                    </tr>
-                </table>
-    
-            </div>
-
-        <div class="table-container">
-
-        <h5 class="mb-3">Barang yang sedang di pinjam</h5>
+            <h5 class="mb-3">Pesanan Baru</h5>
 
             <table class="table table-striped table-bordered ">
                 <thead>
@@ -114,25 +17,31 @@ Dashboard
                         #
                     </th>
                     <th>
-                        Tanggal Pinjam
+                        Nama Pelanggan
                     </th>
                     <th>
-                        Nama Barang
+                        Produk
                     </th>
                     <th>
-                        Jumlah Pinjam
-                    </th>
-
-                    <th>
-                        Nama Siswa
+                        Jenis Kertas
                     </th>
 
                     <th>
-                        Mapel
+                        Qty
                     </th>
 
                     <th>
-                        Status
+                        Total Harga
+                    </th>
+
+                    <th>
+                        Tanggal
+                    </th>
+
+
+
+                    <th>
+                        Action
                     </th>
 
                 </thead>
@@ -142,53 +51,37 @@ Dashboard
                         1
                     </td>
                     <td>
-                        25 Juli 2021
+                        Joko
                     </td>
                     <td>
-                        1
+                        Undangan tipe A
                     </td>
                     <td>
-                        bola Basket
+                        Art Carton 260g
                     </td>
                     <td>
-                        Topik
+                        1000
                     </td>
                     <td>
-                        Kimia
+                        1000000
                     </td>
                     <td>
-                        Dipinjam
+                        25 Agustus 2021
+                    </td>
+
+
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm">Terima</button>
+                        <button type="button" class="btn btn-danger btn-sm">Tolak</button>
                     </td>
                 </tr>
 
-                <tr>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        25 Juli 2021
-                    </td>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        bola Basket
-                    </td>
-                    <td>
-                        Bagus
-                    </td>
-                    <td>
-                        Kimia
-                    </td>
-                    <td>
-                        Dipinjam
-                    </td>
-                </tr>
             </table>
 
         </div>
+
     </section>
-   
+
 
 @endsection
 

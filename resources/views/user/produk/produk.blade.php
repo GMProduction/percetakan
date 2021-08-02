@@ -88,30 +88,10 @@
                                     <label for="namabarang" class="form-label">Nama Barang</label>
                                     <input type="email" class="form-control" id="namabarang">
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="kategori" class="form-label">Kategori</label>
-                                    <div class="d-flex">
-                                        <select class="form-select" aria-label="Default select example" name="idguru">
-                                            <option selected>Mata Pelajaran</option>
-                                            <option value="1">Erfin</option>
-                                            <option value="2">Joko A</option>
-                                            <option value="3">Joko B</option>
-                                        </select>
-                                        <a class="btn btn-primary">+</a>
-                                    </div>
-                                </div>
-
-                                <div class="mt-3 mb-2">
-                                    <label for="gambar" class="form-label">Gambar</label>
-                                    <input class="form-control" type="file" id="gambar">
-                                </div>
-
                                 <div class="mb-3">
                                     <label for="jumlah" class="form-label">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlah">
                                 </div>
-
 
                                 <div class="mb-4"></div>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
