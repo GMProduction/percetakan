@@ -16,10 +16,11 @@
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/myStyle.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/gambar.css') }}" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick-theme.css') }}"/>
-                    
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick-theme.css') }}" />
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet" />
+    
+    @yield('moreCss');
 </head>
 
 <body class="antialiased">
@@ -53,7 +54,7 @@
                             <a class="nav-link" href="https://udb.ac.id/">Tentang Kami</a>
                         </li>
 
-                    
+
                     </ul>
 
                     <div style="width: 100px">
@@ -68,14 +69,14 @@
                         </svg>
                     </div>
 
-                    @php ($login = false)
+                    @php($login = false)
                     @if ($login)
-                    <a href="/login" type="button" class="btn btn-outline-primary btn-sm">Login</a>
+                        <a href="/login" type="button" class="btn btn-outline-primary btn-sm">Login</a>
                     @else
-                    <a href="/login">
-                        <img class="profile-userpic" src="{{ asset('static-image/profile.png') }}"/>
+                        <a href="/login">
+                            <img class="profile-userpic" src="{{ asset('static-image/profile.png') }}" />
 
-                    </a>
+                        </a>
                     @endif
 
                 </div>
@@ -86,7 +87,7 @@
     <main>
         <div class="content-wrapper">
             <a class="tombol-wa">
-                <img src="{{ asset('static-image/WhatsApp.png') }}"/>
+                <img src="{{ asset('static-image/WhatsApp.png') }}" />
             </a>
             @yield('content')
         </div>

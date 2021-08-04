@@ -35,6 +35,28 @@ Route::get('/user', function () {
     return view('user/dashboard');
 });
 
+
+Route::get('/user/menunggu', function () {
+    return view('user/menunggu');
+});
+
+Route::get('/user/proses', function () {
+    return view('user/proses');
+});
+
+Route::get('/user/pengiriman', function () {
+    return view('user/pengiriman');
+});
+
+Route::get('/user/selesai', function () {
+    return view('user/selesai');
+});
+
+Route::get('/user/profil', function () {
+    return view('user/profil');
+});
+
+
 Route::get('/admin', function () {
     return view('admin/dashboard');
 });

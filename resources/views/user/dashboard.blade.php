@@ -1,79 +1,104 @@
-@extends('user.base')
-@section('title')
-Dashboard
+@extends('base')
+
+@section('moreCss')
+
+<link rel="stylesheet" type="text/css" href="{{ asset('css/tab.css') }}" />
+
 @endsection
+
 @section('content')
 
-    <section class="m-2">
+    <section>
+        <div style="height: 80px"></div>
 
-
-        <div class="table-container">
-
-            <h5 class="mb-3">Events</h5>
-    
-                <table class="table table-striped table-bordered ">
-                    <thead>
-                        <th>
-                            #
-                        </th>
-                        <th>
-                           Event Name
-                        </th>
-                        <th>
-                           Date
-                        </th>
-                        <th>
-                           Payment Slip
-                        </th>
-    
-                        <th>
-                            Action
-                        </th>
-
-                    </thead>
-    
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            Dubafest
-                        </td>
-                        <td>
-                            21 August 2021 - 24 August 2021
-                        </td>
-                        <td>
-                            @php($status = "waiting")   
-                            <span 
-                            @if($status = "waiting")
-                            class="t-orange"
-                            @elseif($status = "accepted")
-                            class="t-green"
-                            @else
-                            class="t-red"
-                            @endif
-                            >
-                            
-                            Waiting
-                            </span>
-                        </td>
-                      
-
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm">Detail</button>
-                        </td>
-                    </tr>
-    
-                </table>
-    
-            </div>
 
     </section>
-   
+    <section class="container">
+
+
+
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="category">Selamat datang Joko</p>
+                    <!-- Nav tabs -->
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs justify-content-center" role="tablist">
+                               
+                                <li class="nav-item">
+                                    <a id="menunggu" class="nav-link" data-toggle="tab" href="user/menunggu" role="tab">
+                                        <i class="bx bx-time-five"></i> Menunggu Konfirmasi
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="proses" class="nav-link" data-toggle="tab" href="user/proses" role="tab">
+                                        <i class='bx bx-message-rounded-edit'></i>Proses Desain
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="pengiriman" class="nav-link" data-toggle="tab" href="user/pengiriman" role="tab">
+                                        <i class='bx bxs-truck' ></i> Pengiriman
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a id="selesai" class="nav-link" data-toggle="tab" href="user/selesai" role="tab">
+                                        <i class='bx bx-check' ></i> Selesai
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a id="profil" class="nav-link" data-toggle="tab" href="user/profil" role="tab">
+                                        <i class='bx bx-user'></i> Profil
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <!-- Tab panes -->
+                            @yield('contentUser')
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+
+    </section>
+
 
 @endsection
 
 @section('script')
 
+    <script>
+        $(document).ready(function() {
 
+            $("#menunggu").removeClass("active");
+            $("#proses").removeClass("active");
+            $("#pengiriman").removeClass("active");
+            $("#selesai").removeClass("active");
+            $("#profil").removeClass("active");
+
+            $('.slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 2000,
+                arrows: false
+            });
+        });
+    </script>
+
+    @yield('scriptUser')
 @endsection
