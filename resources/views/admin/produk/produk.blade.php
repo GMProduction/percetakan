@@ -20,13 +20,14 @@
 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5>Data Produk</h5>
-                <button type="button ms-auto" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#tambahproduk">Tambah Data</button>
+                <button type="button ms-auto" class="btn btn-primary btn-sm" id="addData">Tambah Data
+                </button>
             </div>
 
 
             <table class="table table-striped table-bordered ">
                 <thead>
+                <tr>
                     <th>
                         #
                     </th>
@@ -42,41 +43,27 @@
                     </th>
 
                     <th>
-                        Jenis Kertas
-                    </th>
-
-                    <th>
                         Action
                     </th>
-
-                </thead>
-
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        Undangan Tebel
-                    </td>
-                    <td>
-                        <img src="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
-                            style="width: 100px; height: 50px; object-fit: cover" />
-                    </td>
-                    <td>
-                        Undangan
-                    </td>
-                    <td>
-                        3
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#modalHarga">Tambah Harga</button>
-                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#tambahproduk">Ubah</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="hapus('id', 'nama') ">hapus</button>
-                    </td>
                 </tr>
 
+                </thead>
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td>{{$key + 1}}</td>
+                        <td>{{$d->nama_produk}}</td>
+                        <td><img src="{{$d->url_gambar}}" style="width: 100px; height: 50px; object-fit: cover"/></td>
+                        <td>{{$d->getKategori->nama_kategori}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" data-id="{{$d->id}}" id="tambahHarga">Tambah Harga
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm" data-id="{{$d->id}}" id="editData">Ubah
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="hapus('id', 'nama') ">hapus</button>
+                        </td>
+                    </tr>
+                @empty
+                @endforelse
             </table>
 
         </div>
@@ -93,56 +80,39 @@
                             <h5 class="modal-title" id="exampleModalLabel">harga Produk</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        
+
                         <div class="modal-body">
 
 
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5>Data Harga Produk</h5>
-                                <button type="button ms-auto" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#tambahharga">Tambah Data</button>
+                                <a type="button ms-auto" class="btn btn-primary btn-sm" id="addDataProduk">Tambah Data
+                                </a>
                             </div>
 
 
                             <table class="table table-striped table-bordered ">
                                 <thead>
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>
-                                        Jenis Kertas
-                                    </th>
-                                    <th>
-                                        harga
-                                    </th>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Jenis Kertas
+                                </th>
+                                <th>
+                                    harga
+                                </th>
 
 
-                                    <th>
-                                        Action
-                                    </th>
+                                <th>
+                                    Action
+                                </th>
 
                                 </thead>
 
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        Art Carton 260g
-                                    </td>
+                                <tbody id="tbharga">
 
-                                    <td>
-                                        1000
-                                    </td>
-
-                                    <td>
-
-                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#tambahharga">Ubah</button>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            onclick="hapus('id', 'nama') ">hapus</button>
-                                    </td>
-                                </tr>
+                                </tbody>
 
                             </table>
 
@@ -161,15 +131,18 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="form" onsubmit="return saveHarga()">
+                                @csrf
+                                <input id="id" name="id">
+                                <input id="id_produk" name="id_produk">
                                 <div class="mb-3">
                                     <label for="jenisKertas" class="form-label">Jenis Kertas</label>
-                                    <input type="text" class="form-control" id="jenisKertas">
+                                    <input type="text" class="form-control" id="jenisKertas" name="jenis_kertas">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="harga" class="form-label">Harga</label>
-                                    <input type="number" class="form-control" id="harga">
+                                    <input type="number" class="form-control" id="harga" name="harga">
                                 </div>
 
                                 <div class="mb-4"></div>
@@ -194,17 +167,14 @@
                             <form>
                                 <div class="mb-3">
                                     <label for="namaProduk" class="form-label">Nama Produk</label>
-                                    <input type="email" class="form-control" id="namaProduk">
+                                    <input type="email" class="form-control" id="nama_produk" name="nama_produk">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="kategori" class="form-label">Kategori</label>
                                     <div class="d-flex">
-                                        <select class="form-select" aria-label="Default select example" name="kategori">
-                                            <option selected>Pilih Kategori</option>
-                                            <option value="1">Undangan</option>
-                                            <option value="2">Kartu Nama</option>
-                                            <option value="3">Box</option>
+                                        <select class="form-select" aria-label="Default select example" id="kategori" name="id_kategori">
+
                                         </select>
                                         <a class="btn btn-primary ms-2">+</a>
                                     </div>
@@ -212,12 +182,12 @@
 
                                 <div class="mt-3 mb-2">
                                     <label for="gambar" class="form-label">Gambar</label>
-                                    <input class="form-control" type="file" id="gambar">
+                                    <input class="form-control" type="file" id="url_gambar" name="url_gambar">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="biayaLaminasi" class="form-label">Biaya Laminasi</label>
-                                    <input type="number" class="form-control" id="biayaLaminasi">
+                                    <input type="number" class="form-control" id="biaya_laminasi" name="biaya_laminasi">
                                 </div>
 
                                 <div class="mb-4"></div>
@@ -236,28 +206,93 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
         })
 
-        function hapus(id, name) {
-            swal({
-                    title: "Menghapus data?",
-                    text: "Apa kamu yakin, ingin menghapus data ?!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
+
+
+        $(document).on('click','#editData', function () {
+            $('#tambahproduk').modal('show');
+        })
+
+        $(document).on('click','#addData', function () {
+            getKategori();
+            $('#tambahproduk').modal('show');
+        })
+
+        function getKategori() {
+            var select = $('#kategori');
+            select.empty();
+            select.append('<option value="" disabled selected>Pilih Kategori</option>')
+            $.get('{{route('produk_kategori')}}', function (data) {
+                console.log(data);
+                $.each(data, function (key, value) {
+                    select.append('<option value="'+value['id']+'">'+value['nama_kategori']+'</option>')
                 })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Berhasil Menghapus data!", {
-                            icon: "success",
-                        });
-                    } else {
-                        swal("Data belum terhapus");
-                    }
-                });
+            })
         }
+
+        //Jenis harga //
+        function getDataHarga(id) {
+            $.get('/admin/produk/'+id, function (data) {
+                var tabel = $('#tbharga');
+                tabel.empty();
+                $('#tambahharga #id_produk').val(data['id']);
+               $.each(data['get_harga'], function (key, value) {
+                var row ='<tr>' +
+                    '<td>'+parseInt(key+1)+'</td>' +
+                    '<td>'+value['jenis_kertas']+'</td>' +
+                    '<td>' +value['harga']+'</td>' +
+                    '<td><a class="btn btn-sm btn-success" id="editDataProduk" data-id="'+value['id']+'"  data-jenis="'+value['jenis_kertas']+'" data-harga="'+value['harga']+'">Edit</a>' +
+                    '<a class="btn btn-sm btn-danger"  id="deleteDataProduk" data-id="'+value['id']+'" data-jenis="'+value['jenis_kertas']+'">Hapus</a></td>' +
+                    '</tr>';
+                   tabel.append(row);
+               })
+            })
+        }
+
+        $(document).on('click','#tambahHarga', function () {
+            var id = $(this).data('id');
+            getDataHarga(id);
+            $('#modalHarga').modal('show');
+        })
+
+        function afterAddharga() {
+            var idProduk = $('#tambahharga #id_produk').val();
+            $('#tambahharga').modal('hide');
+            getDataHarga(idProduk);
+        }
+        function saveHarga(){
+            var idProduk = $('#tambahharga #id_produk').val();
+            saveData('Tambah Jenis harga','form','/admin/produk/'+idProduk, afterAddharga);
+            return false;
+        }
+
+        $(document).on('click','#editDataProduk', function () {
+            var id = $(this).data('id');
+            var jenis = $(this).data('jenis');
+            var harga = $(this).data('harga');
+
+            $('#tambahharga #jenisKertas').val(jenis);
+            $('#tambahharga #harga').val(harga);
+            $('#tambahharga #id').val(id);
+            $('#tambahharga').modal('show');
+        })
+
+        $(document).on('click','#addDataProduk', function () {
+            $('#tambahharga #jenisKertas').val('');
+            $('#tambahharga #harga').val('');
+            $('#tambahharga #id').val('');
+            $('#tambahharga').modal('show');
+        })
+
+        $(document).on('click','#deleteDataProduk', function () {
+            var id = $(this).data('id');
+            var nama = $(this).data('jenis');
+            deleteData(nama,'/admin/produk/delete/'+id, afterAddharga)
+            return false;
+        })
     </script>
 
 @endsection

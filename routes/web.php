@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\HargaController;
+use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +35,7 @@ Route::get('/detail', function () {
 });
 
 Route::get('/user', function () {
-    return view('user/dashboard');
+    return view('user.dashboard');
 });
 
 
@@ -57,13 +60,14 @@ Route::get('/user/profil', function () {
 });
 
 
-Route::get('/admin', function () {
-    return view('admin/dashboard');
+Route::prefix('/admin')->group(function (){
+    Route::get('/produk', [ProductController::class,'index']);
+    Route::get('/produk/kategori', [KategoriController::class,'dataKategori'])->name('produk_kategori');
+    Route::get('/produk/{id}', [HargaController::class,'getProdukHarga'])->name('detail_produk');
+    Route::post('/produk/{id}', [HargaController::class,'addJenisHarga'])->name('detail_produk_add');
+    Route::get('/produk/delete/{id}', [HargaController::class,'deleteJenisHarga'])->name('detail_produk_delete');
 });
 
-Route::get('/admin/produk', function () {
-    return view('admin/produk/produk');
-});
 
 Route::get('/admin/pelanggan', function () {
     return view('admin/pelanggan/pelanggan');

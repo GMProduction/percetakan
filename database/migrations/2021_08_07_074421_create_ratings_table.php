@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHargasTable extends Migration
+class CreateRatingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateHargasTable extends Migration
      */
     public function up()
     {
-        Schema::create('hargas', function (Blueprint $table) {
+        Schema::create('ratings', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_produk')->unsigned()->nullable(true);
             $table->foreign('id_produk')->references('id')->on('produks');
-            $table->string('jenis_kertas');
-            $table->integer('harga');
+            $table->bigInteger('id_pelanggan')->unsigned()->nullable(true);
+            $table->foreign('id_pelanggan')->references('id')->on('users');
+            $table->double('nilai');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateHargasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hargas');
+        Schema::dropIfExists('ratings');
     }
 }

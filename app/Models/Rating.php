@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Harga extends Model
+class Rating extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'jenis_kertas',
-        'harga',
-        'id_produk'
-    ];
 }

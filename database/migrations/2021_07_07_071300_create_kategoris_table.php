@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProduksTable extends Migration
+class CreateKategorisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateProduksTable extends Migration
      */
     public function up()
     {
-        Schema::create('produks', function (Blueprint $table) {
+        Schema::create('kategoris', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_kategori')->unsigned()->nullable(true);
-            $table->foreign('id_kategori')->references('id')->on('kategoris');
-            $table->string('nama_produk');
+            $table->string('nama_kategori');
             $table->text('url_gambar')->nullable(true);
-            $table->text('deskripsi');
-            $table->integer('biaya_laminasi');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateProduksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produks');
+        Schema::dropIfExists('kategoris');
     }
 }
