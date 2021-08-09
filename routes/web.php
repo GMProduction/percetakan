@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\HargaController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\PelangganController;
+use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
@@ -61,21 +63,26 @@ Route::get('/user/profil', function () {
 
 
 Route::prefix('/admin')->group(function (){
-    Route::get('/produk', [ProductController::class,'index']);
+    Route::get('/', function (){
+        return view('admin.dashboard');
+    });
+    Route::match(['post','get'],'/produk', [ProductController::class,'index']);
     Route::get('/produk/kategori', [KategoriController::class,'dataKategori'])->name('produk_kategori');
+    Route::post('/produk/kategori', [KategoriController::class,'addKategori'])->name('add_kategori');
     Route::get('/produk/{id}', [HargaController::class,'getProdukHarga'])->name('detail_produk');
     Route::post('/produk/{id}', [HargaController::class,'addJenisHarga'])->name('detail_produk_add');
     Route::get('/produk/delete/{id}', [HargaController::class,'deleteJenisHarga'])->name('detail_produk_delete');
+
+    Route::get('/pelanggan',[PelangganController::class,'index']);
+
+    Route::get('/pesanan', [PesananController::class,'index']);
+    Route::get('/pesanan/{id}', [PesananController::class,'detail']);
 });
 
 
-Route::get('/admin/pelanggan', function () {
-    return view('admin/pelanggan/pelanggan');
-});
 
-Route::get('/admin/pesanan', function () {
-    return view('admin/pesanan/pesanan');
-});
+
+
 
 
 

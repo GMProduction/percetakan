@@ -13,4 +13,8 @@ class Harga extends Model
         'harga',
         'id_produk'
     ];
+
+    public function getProduk(){
+        return $this->belongsTo(Produk::class,'id_produk');
+    }
 }

@@ -53,6 +53,21 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'imageKategori' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/ketegori',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
+        'imageProduk' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/produk',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
+
     ],
 
     /*

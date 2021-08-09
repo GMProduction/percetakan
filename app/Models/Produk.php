@@ -17,7 +17,6 @@ class Produk extends Model
         'biaya_laminasi',
     ];
 
-    protected $with = ['getKategori','getHarga'];
 
     public function getkategori(){
         return $this->belongsTo(Kategori::class,'id_kategori');

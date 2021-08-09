@@ -26,51 +26,30 @@
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Username
-                    </th>
-                    <th>
-                        Nama Pelanggan
-                    </th>
-
-                    <th>
-                        Alamat
-                    </th>
-
-                    <th>
-                        No Hp
-                    </th>
-
-
-
+                <th>#</th>
+                <th>Username</th>
+                <th>Nama Pelanggan</th>
+                <th>Alamat</th>
+                <th>No Hp</th>
                 </thead>
-
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        Efin123
-                    </td>
-                    <td>
-                        Erfin Aditya
-                    </td>
-                    <td>
-                        Sukoharjo
-                    </td>
-                    <td>
-                        0878798745
-                    </td>
-
-                </tr>
-
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td>{{$key+1}}</td>
+                        <td>{{$d->username}}</td>
+                        <td>{{$d->getPelanggan->nama}}</td>
+                        <td>{{$d->getPelanggan->alamat}}</td>
+                        <td>{{$d->getPelanggan->no_hp}}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td class="text-center" colspan="5">Tidak ada data pelanggan</td>
+                    </tr>
+                @endforelse
             </table>
-
+            <div class="d-flex justify-content-end">
+                {{$data->links()}}
+            </div>
         </div>
-
 
 
     </section>

@@ -15,7 +15,7 @@ function saveData(title, form, url, resposeSuccess) {
                 $.ajax({
                     type: "POST",
                     data: form_data,
-                    url: url,
+                    url: url ?? window.location.pathname,
                     async: true,
                     processData: false,
                     contentType: false,
@@ -31,6 +31,8 @@ function saveData(title, form, url, resposeSuccess) {
                             }).then((dat) => {
                                if (resposeSuccess){
                                    resposeSuccess()
+                               }else{
+                                   window.location.reload()
                                }
                             });
                         } else {

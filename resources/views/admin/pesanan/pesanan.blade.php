@@ -26,74 +26,47 @@
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Nama Pelanggan
-                    </th>
-                    <th>
-                        Produk
-                    </th>
-
-                    <th>
-                        Qty
-                    </th>
-
-                    <th>
-                        Total Harga
-                    </th>
-
-                    <th>
-                        Status Pengerjaan
-                    </th>
-
-                    <th>
-                        Status Pembayaran
-                    </th>
-
-
-                    <th>
-                        Action
-                    </th>
-
-                </thead>
-
                 <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        Erfin
-                    </td>
-                    <td>
-                        Undangan Tebal
-                    </td>
-                    <td>
-                        100
-                    </td>
-                    <td>
-                        1000000
-                    </td>
-                    <td>
-                        Proses Desain
-                    </td>
-                    <td>
-                        Sudah
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-success btn-sm m-1" data-bs-toggle="modal"
-                            data-bs-target="#detail">Detail</button>
-                        <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal"
-                            data-bs-target="#kirimDesain">Kirim Desain</button>
-                        <a type="button" class="btn btn-warning btn-sm m-1 " href="https://wa.me/6287879878">Chat</a>
-                        <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal"
-                            data-bs-target="#buatharga">Buat Harga</button>
-                    </td>
+                    <th>#</th>
+                    <th>Nama Pelanggan</th>
+                    <th>Produk</th>
+                    <th>Qty</th>
+                    <th>Total Harga</th>
+                    <th>Status Pengerjaan</th>
+                    <th>Status Pembayaran</th>
+                    <th>Action</th>
                 </tr>
-
+                </thead>
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td>{{$key+1}}</td>
+                        <td>{{$d->getUser->getPelanggan->nama}}</td>
+                        <td>{{$d->getHarga ? $d->getharga->getProduk->nama_produk : 'Custom' }}</td>
+                        <td>{{$d->qty}}</td>
+                        <td>{{$d->total_harga ?? ''}}</td>
+                        <td>{{$d->status_pengerjaan == 0 ? 'Menunggu Konfirmasi' : ($d->status_pengerjaan == 1 ? 'Proses Desain' : ($d->status_pengerjaan == 2 ? 'Pengiriman' : 'Selesai'))}}</td>
+                        <td>{{$d->status_bayar == 0 ? 'Belum' : 'Lunas'}}</td>
+                        <td>
+                            <button type="button" class="btn btn-success btn-sm m-1" id="detailData" data-id="{{$d->id}}">Detail
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal"
+                                    data-bs-target="#kirimDesain">Kirim Desain
+                            </button>
+                            <a type="button" class="btn btn-warning btn-sm m-1 " href="https://wa.me/6287879878">Chat</a>
+                            <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal"
+                                    data-bs-target="#buatharga">Buat Harga
+                            </button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td class="text-center" colspan="8">Tidak ada pesanan</td>
+                    </tr>
+                @endforelse
             </table>
-
+            <div class="d-flex justify-content-end">
+                {{$data->links()}}
+            </div>
         </div>
 
 
@@ -111,10 +84,10 @@
                         <div class="modal-body">
 
                             <a style="cursor: pointer"
-                                href="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
-                                target="_blank">
+                               href="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
+                               target="_blank">
                                 <img src="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
-                                    style="width: 100%; height: 300px; object-fit: cover" />
+                                     style="width: 100%; height: 300px; object-fit: cover"/>
                             </a>
 
                             <div class="row mt-5">
@@ -182,7 +155,6 @@
                                 </div>
 
 
-
                                 <div class="col-4 border rounded p-3">
                                     <div class="mb-3">
                                         <label for="dStatusDesain" class="form-label">Status Desain</label>
@@ -192,10 +164,10 @@
                                     <div class="mb-3">
                                         <a for="dBuktiTransfer" class="d-block">Bukti Transfer</a>
                                         <a style="cursor: pointer"
-                                            href="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
-                                            target="_blank">
+                                           href="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
+                                           target="_blank">
                                             <img src="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
-                                                style="width: 100px; height: 50px; object-fit: cover" />
+                                                 style="width: 100px; height: 50px; object-fit: cover"/>
                                         </a>
                                     </div>
 
@@ -242,10 +214,10 @@
                         <div class="modal-body">
 
                             <a style="cursor: pointer"
-                                href="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
-                                target="_blank">
+                               href="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
+                               target="_blank">
                                 <img src="https://images.tokopedia.net/img/cache/900/product-1/2020/4/10/22258225/22258225_4e32e5f1-82ec-47bd-8202-5b0ca54ded39_1000_1000"
-                                    style="width: 100%; height: 300px; object-fit: cover" />
+                                     style="width: 100%; height: 300px; object-fit: cover"/>
                             </a>
 
                             <div class="row mt-5 ">
@@ -287,7 +259,6 @@
                                         <label for="hQty" class="form-label">Qty </label>
                                         <input type="text" class="form-control" readonly id="hQty">
                                     </div>
-
 
 
                                 </div>
@@ -343,33 +314,25 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
 @endsection
 
 @section('script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
         })
 
-        function hapus(id, name) {
-            swal({
-                    title: "Menghapus data?",
-                    text: "Apa kamu yakin, ingin menghapus data ?!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Berhasil Menghapus data!", {
-                            icon: "success",
-                        });
-                    } else {
-                        swal("Data belum terhapus");
-                    }
-                });
+       $(document).on('click', '#detailData', function () {
+            $('#detail').modal('show')
+       })
+
+        function getDetailPesanan(id) {
+            $.get('/admin/pesanan/'+id, function (data) {
+
+            })
         }
     </script>
 

@@ -19,13 +19,13 @@ class CreatePesanansTable extends Migration
             $table->foreign('id_harga')->references('id')->on('hargas');
             $table->bigInteger('id_pelanggan')->unsigned()->nullable(true);
             $table->foreign('id_pelanggan')->references('id')->on('users');
-            $table->integer('total_harga');
+            $table->integer('total_harga')->nullable(true);
             $table->tinyInteger('status_bayar');
             $table->tinyInteger('status_pengerjaan');
             $table->date('tanggal_pesan');
             $table->integer('qty');
             $table->integer('biaya_ongkir');
-            $table->text('laminasi');
+            $table->boolean('laminasi');
             $table->text('keterangan');
             $table->tinyInteger('status_desain');
             $table->text('url_gambar');
