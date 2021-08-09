@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\HargaController;
+use App\Http\Controllers\Admin\JenisKertasController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PelangganController;
 use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\CustomDesainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,12 +43,17 @@ Route::get('/user', function () {
 });
 
 
+
+Route::get('/user/keranjang', function () {
+    return view('user/keranjang');
+});
+
 Route::get('/user/menunggu', function () {
     return view('user/menunggu');
 });
 
 Route::get('/user/proses', function () {
-    return view('user/proses');
+    return view('user/proses-desain');
 });
 
 Route::get('/user/pengiriman', function () {

@@ -59,7 +59,7 @@
     <script>
         $(document).ready(function() {
             
-            $("#menunggu").addClass("active");
+            $("#profil").addClass("active");
         });
     </script>
 

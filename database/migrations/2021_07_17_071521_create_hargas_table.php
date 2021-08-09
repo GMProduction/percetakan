@@ -17,7 +17,8 @@ class CreateHargasTable extends Migration
             $table->id();
             $table->bigInteger('id_produk')->unsigned()->nullable(true);
             $table->foreign('id_produk')->references('id')->on('produks');
-            $table->string('jenis_kertas');
+            $table->bigInteger('id_jenis')->unsigned()->nullable(true);
+            $table->foreign('id_jenis')->references('id')->on('jenis_kertas');
             $table->integer('harga');
             $table->timestamps();
         });

@@ -28,23 +28,11 @@
             <table class="table table-striped table-bordered ">
                 <thead>
                 <tr>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        nama Produk
-                    </th>
-                    <th>
-                        Gambar
-                    </th>
-
-                    <th>
-                        Kategori
-                    </th>
-
-                    <th>
-                        Action
-                    </th>
+                    <th>#</th>
+                    <th>nama Produk</th>
+                    <th>Gambar</th>
+                    <th>Kategori</th>
+                    <th>Action</th>
                 </tr>
 
                 </thead>
@@ -63,6 +51,9 @@
                         </td>
                     </tr>
                 @empty
+                    <tr>
+                        <td class="text-center" colspan="5">Tidak ada produk</td>
+                    </tr>
                 @endforelse
             </table>
             <div class="d-flex justify-content-end">
@@ -91,35 +82,19 @@
                                 <a type="button ms-auto" class="btn btn-primary btn-sm" id="addDataProduk">Tambah Data
                                 </a>
                             </div>
-
-
                             <table class="table table-striped table-bordered ">
                                 <thead>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Jenis Kertas
-                                </th>
-                                <th>
-                                    harga
-                                </th>
-
-
-                                <th>
-                                    Action
-                                </th>
-
+                                <tr>
+                                    <th>#</th>
+                                    <th>Jenis Kertas</th>
+                                    <th>harga</th>
+                                    <th>Action</th>
+                                </tr>
                                 </thead>
-
                                 <tbody id="tbharga">
-
                                 </tbody>
-
                             </table>
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -139,7 +114,7 @@
                                 <input id="id_produk" name="id_produk" hidden>
                                 <div class="mb-3">
                                     <label for="jenisKertas" class="form-label">Jenis Kertas</label>
-                                    <input type="text" class="form-control" id="jenisKertas" name="jenis_kertas">
+                                    <select id="id_jenis" name="id_jenis" class="form-select" required></select>
                                 </div>
 
                                 <div class="mb-3">
@@ -223,22 +198,18 @@
 
                                 <div class="mb-3">
                                     <label for="harga" class="form-label">Gambar</label>
-                                    <input type="file" class="form-control" id="url_gambar" name="url_gambar">
+                                    <input type="file" class="form-control" id="url_gambar" accept="image/*" name="url_gambar">
                                 </div>
 
                                 <div class="mb-4"></div>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
-
     </section>
-
 @endsection
 
 @section('script')
@@ -292,6 +263,8 @@
         }
 
         $(document).on('click', '#addKategori', function () {
+            $('#tambahkategori #nama_kategori').val('')
+            $('#tambahkategori #url_gambar').val('')
             $('#tambahkategori').modal('show')
         })
 
@@ -318,9 +291,9 @@
                     $.each(data['get_harga'], function (key, value) {
                         row = '<tr>' +
                             '<td>' + parseInt(key + 1) + '</td>' +
-                            '<td>' + value['jenis_kertas'] + '</td>' +
+                            '<td>' + value['get_jenis']['nama_jenis'] + '</td>' +
                             '<td>' + value['harga'] + '</td>' +
-                            '<td><a class="btn btn-sm btn-success" id="editDataProduk" data-id="' + value['id'] + '"  data-jenis="' + value['jenis_kertas'] + '" data-harga="' + value['harga'] + '">Edit</a>' +
+                            '<td><a class="btn btn-sm btn-success" id="editDataProduk" data-id="' + value['id'] + '"  data-jenis="' + value['id_jenis'] + '" data-harga="' + value['harga'] + '">Edit</a> ' +
                             '<a class="btn btn-sm btn-danger"  id="deleteDataProduk" data-id="' + value['id'] + '" data-jenis="' + value['jenis_kertas'] + '">Hapus</a></td>' +
                             '</tr>';
                         tabel.append(row);
@@ -328,6 +301,7 @@
                 }
             })
         }
+
 
         $(document).on('click', '#tambahHarga', function () {
             var id = $(this).data('id');
@@ -351,8 +325,8 @@
             var id = $(this).data('id');
             var jenis = $(this).data('jenis');
             var harga = $(this).data('harga');
+            getSelect('id_jenis','{{route('jenis_kertas')}}','nama_jenis',jenis);
 
-            $('#tambahharga #jenisKertas').val(jenis);
             $('#tambahharga #harga').val(harga);
             $('#tambahharga #id').val(id);
             $('#tambahharga').modal('show');
@@ -362,6 +336,7 @@
             $('#tambahharga #jenisKertas').val('');
             $('#tambahharga #harga').val('');
             $('#tambahharga #id').val('');
+            getSelect('id_jenis','{{route('jenis_kertas')}}','nama_jenis');
             $('#tambahharga').modal('show');
         })
 

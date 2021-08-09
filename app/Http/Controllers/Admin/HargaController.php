@@ -12,7 +12,7 @@ class HargaController extends Controller
     //
     public function getProdukHarga($id)
     {
-        $produk = Produk::find($id);
+        $produk = Produk::with(['getHarga','getkategori'])->find($id);
 
         return $produk;
     }
@@ -21,7 +21,7 @@ class HargaController extends Controller
     {
         $field = \request()->validate(
             [
-                'jenis_kertas' => 'required',
+                'id_jenis' => 'required',
                 'harga'        => 'required',
             ]
         );

@@ -23,7 +23,7 @@ class Pesanan extends Model
         'url_gambar',
     ];
 
-    protected $with = ['getHarga.getProduk','getUser.getPelanggan'];
+    protected $with = ['getHarga','getUser.getPelanggan','getPembayaran',];
 
     public function getHarga(){
         return $this->belongsTo(Harga::class,'id_harga');
@@ -31,5 +31,9 @@ class Pesanan extends Model
 
     public function getUser(){
         return $this->belongsTo(User::class,'id_pelanggan');
+    }
+
+    public function getPembayaran(){
+        return $this->hasOne(Pembayaran::class,'id_pesanan');
     }
 }

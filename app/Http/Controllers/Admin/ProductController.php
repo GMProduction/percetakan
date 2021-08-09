@@ -24,7 +24,7 @@ class ProductController extends CustomController
                 ]
             );
 
-            $img = $this->request->get('url_gambar');
+            $img = $this->request->files->get('url_gambar');
             if ($img || $img != '') {
                 $image     = $this->generateImageName('url_gambar');
                 $stringImg = '/images/produk/'.$image;
@@ -46,7 +46,7 @@ class ProductController extends CustomController
                 'msg' => 'berhasil'
             ],200);
         }
-        $produk = Produk::with(['getKategori','getHarga'])->paginate(10);
+        $produk = Produk::with(['getHarga.getJenis'])->paginate(10);
 
         return view('admin.produk.produk')->with(['data' => $produk]);
     }

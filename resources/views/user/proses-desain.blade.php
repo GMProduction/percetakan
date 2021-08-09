@@ -17,6 +17,12 @@
                             <p class="keterangan">Keterangan</p>
                             <p class="totalHarga">Total Harga</p>
                         </div>
+                       
+                    </div>
+                    <div class="d-flex">
+                        <a class="btn btn-success btn-sm ms-auto">Lihat Desain</a>
+                        <a class="btn btn-primary btn-sm ms-3" data-bs-toggle="modal"
+                        data-bs-target="#uploadpembayaran">Konfirmasi</a>
                     </div>
                 </div>
             </div>
@@ -59,7 +65,7 @@
     <script>
         $(document).ready(function() {
             
-            $("#menunggu").addClass("active");
+            $("#proses").addClass("active");
         });
     </script>
 

@@ -1,8 +1,6 @@
 function saveData(title, form, url, resposeSuccess) {
-    var form_data = new FormData($('#'+form)[0]);
+    var form_data = new FormData($('#' + form)[0]);
 
-    // console.log(resposeSuccess)
-    // return false;
     swal({
         title: title,
         text: "Apa kamu yakin ?",
@@ -29,11 +27,11 @@ function saveData(title, form, url, resposeSuccess) {
                             swal("Data Updated ", {
                                 icon: "success",
                             }).then((dat) => {
-                               if (resposeSuccess){
-                                   resposeSuccess()
-                               }else{
-                                   window.location.reload()
-                               }
+                                if (resposeSuccess) {
+                                    resposeSuccess()
+                                } else {
+                                    window.location.reload()
+                                }
                             });
                         } else {
                             swal(data['msg'])
@@ -62,10 +60,10 @@ function deleteData(text, url, resposeSuccess) {
     var form_data = {
         '_token': '{{csrf_token()}}'
     }
-console.log(url);
+    console.log(url);
     swal({
         title: 'Hapus Data',
-        text: "Apa kamu yakin menghapus data "+text+" ?",
+        text: "Apa kamu yakin menghapus data " + text + " ?",
         icon: "info",
         buttons: true,
         dangerMode: true,
@@ -89,7 +87,7 @@ console.log(url);
                             swal("Data Deleted ", {
                                 icon: "success",
                             }).then((dat) => {
-                                if (resposeSuccess){
+                                if (resposeSuccess) {
                                     resposeSuccess()
                                 }
                             });
@@ -114,4 +112,19 @@ console.log(url);
             }
         });
     return false;
+}
+
+function getSelect(id, url, nameValue, idValue) {
+    var select = $('#' + id);
+    select.empty();
+    select.append('<option value="" disabled selected>Pilih Data</option>')
+    $.get(url, function (data) {
+        $.each(data, function (key, value) {
+            if (idValue === value['id']) {
+                select.append('<option value="' + value['id'] + '" selected>' + value[nameValue] + '</option>')
+            } else {
+                select.append('<option value="' + value['id'] + '">' + value[nameValue] + '</option>')
+            }
+        })
+    })
 }
