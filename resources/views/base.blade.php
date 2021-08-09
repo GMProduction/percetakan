@@ -41,17 +41,17 @@
                 <div class="collapse navbar-collapse " id="navbarToggler">
                     <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Beranda</a>
+                            <a class="nav-link" href="/">Beranda</a>
                         </li>
 
 
 
                         <li class="nav-item">
-                            <a class="nav-link" href="https://udb.ac.id/">Belanja</a>
+                            <a class="nav-link" href="/belanja">Belanja</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="https://udb.ac.id/">Tentang Kami</a>
+                            <a class="nav-link" href="/tentang-kami">Tentang Kami</a>
                         </li>
 
 
@@ -73,7 +73,7 @@
                     @if ($login)
                         <a href="/login" type="button" class="btn btn-outline-primary btn-sm">Login</a>
                     @else
-                        <a href="/login">
+                        <a href="/user">
                             <img class="profile-userpic" src="{{ asset('static-image/profile.png') }}" />
 
                         </a>
@@ -113,8 +113,7 @@
                             </td>
 
                             <td>
-                                <p>Fakultas Ilmu Komputer Universitas Duta Bangsa, Jl. Bhayangkara No.55, Tipes, Kec.
-                                    Serengan, Kota Surakarta, Jawa Tengah 57154
+                                <p>Jl. Kapten Mulyadi No. 126, Pasar Kliwon, Surakarta 
                                 </p>
 
                             </td>
@@ -131,7 +130,7 @@
                         </td>
 
                         <td>
-                            <p>(0271) 719552
+                            <p>0813 2969 4570
                             </p>
 
                         </td>
@@ -147,13 +146,13 @@
                         </td>
 
                         <td>
-                            <p>info@udb.ac.id</p>
+                            <p>dnasetting@gmail.com</p>
 
                         </td>
 
                     </table>
 
-                    <table>
+                    {{-- <table>
                         <td style="vertical-align:top">
                             <svg class="icon me-2" viewBox="0 0 24 24">
                                 <path
@@ -166,16 +165,14 @@
 
                         </td>
 
-                    </table>
+                    </table> --}}
 
                 </div>
                 <div class="col">
                     <p class="title-footer">Menu</p>
                     <div class="content-footer">
-                        <a href="#" class="d-block link">Profil</a>
-                        <a href="https://syariah.iain-surakarta.ac.id/" class="d-block link">Informasi</a>
-                        <a href="https://syariah.iain-surakarta.ac.id/download-2/" class="d-block link">Layanan</a>
-                        <a href="#" class="d-block link">Materi Kuliah</a>
+                        <a href="/belanja" class="d-block link">Belanja</a>
+                        <a href="/tentang-kami" class="d-block link">Tentang Kami</a>
                     </div>
                 </div>
 

@@ -31,17 +31,30 @@ Route::get('/detail', function () {
     return view('detail');
 });
 
+Route::get('/custom', function () {
+    return view('detail-custom');
+});
+
+Route::get('/kategori', function () {
+    return view('kategori');
+});
+
 Route::get('/user', function () {
     return view('user/dashboard');
 });
 
+
+
+Route::get('/user/keranjang', function () {
+    return view('user/keranjang');
+});
 
 Route::get('/user/menunggu', function () {
     return view('user/menunggu');
 });
 
 Route::get('/user/proses', function () {
-    return view('user/proses');
+    return view('user/proses-desain');
 });
 
 Route::get('/user/pengiriman', function () {
@@ -51,6 +64,11 @@ Route::get('/user/pengiriman', function () {
 Route::get('/user/selesai', function () {
     return view('user/selesai');
 });
+
+Route::get('/user/profil', function () {
+    return view('user/profil');
+});
+
 
 Route::get('/user/profil', function () {
     return view('user/profil');

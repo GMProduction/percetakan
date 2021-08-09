@@ -30,23 +30,29 @@
                             <ul class="nav nav-tabs justify-content-center" role="tablist">
                                
                                 <li class="nav-item">
-                                    <a id="menunggu" class="nav-link" data-toggle="tab" href="user/menunggu" role="tab">
+                                    <a id="keranjang" class="nav-link" data-toggle="tab" href="/user/keranjang" role="tab">
+                                        <i class="bx bx-cart"></i> Keranjang
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a id="menunggu" class="nav-link" data-toggle="tab" href="/user/menunggu" role="tab">
                                         <i class="bx bx-time-five"></i> Menunggu Konfirmasi
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="proses" class="nav-link" data-toggle="tab" href="user/proses" role="tab">
+                                    <a id="proses" class="nav-link" data-toggle="tab" href="/user/proses" role="tab">
                                         <i class='bx bx-message-rounded-edit'></i>Proses Desain
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="pengiriman" class="nav-link" data-toggle="tab" href="user/pengiriman" role="tab">
+                                    <a id="pengiriman" class="nav-link" data-toggle="tab" href="/user/pengiriman" role="tab">
                                         <i class='bx bxs-truck' ></i> Pengiriman
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a id="selesai" class="nav-link" data-toggle="tab" href="user/selesai" role="tab">
+                                    <a id="selesai" class="nav-link" data-toggle="tab" href="/user/selesai" role="tab">
                                         <i class='bx bx-check' ></i> Selesai
                                     </a>
                                 </li>

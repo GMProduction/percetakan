@@ -11,7 +11,7 @@
 
         <div>
             <div style="height: 130px"></div>
-            <h4 class="mb-4  fw-bold"><span class="text-primary">Nama Barang</span> (kategori)</h4>
+            <h4 class="mb-4  fw-bold"><span class="text-primary">Custom Desain</span></h4>
             <hr>
 
             <div class="row">
@@ -20,32 +20,19 @@
                 <div class="col-8">
                     <img src="https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg" class="gambar-detail" />
                     <p class="mt-3 fw-bold mb-0">
-                        Tersedia Bahan:
+                        Custom Desain:
                     </p>
-                    <p class="mb-0">
-                        Bahan 1
-                    </p>
-                    <p class="mb-0">
-                        Bahan 2
-                    </p>
-                    <p class="mb-0">
-                        Bahan 3
-                    </p>
+                  
                     <p class="mt-3">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
-                        an unknown printer took a galley of type and scrambled it to make a type specimen book. It
-                        has survived not only five centuries, but also the leap into electronic typesetting,
-                        remaining essentially unchanged. It was popularised in the 1960s with the release of
-                        Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                        software like Aldus PageMaker including versions of Lorem Ipsum.
+                        Ketentuan Custom Desain: .
+                        Upload file dalam bentuk JPG / PNG, Isi secara detail produk yang kamu inginkan.
                     </p>
                 </div>
 
                 <div class="col-4">
 
                     <div class="table-container">
-                        <h5 class="mb-5">Pesan Barang</h5>
+                        <h5 class="mb-5">Custom Desain</h5>
 
 
                         <form>
@@ -73,6 +60,11 @@
                             </div>
 
                             <div class="mt-3 mb-3 mb-2">
+                                <label for="imageFile" class="form-label">Upload File Gambar JPG / PNG</label>
+                                <input class="form-control" type="file" id="imageFile">
+                            </div>
+
+                            <div class="mt-3 mb-3 mb-2">
                                 <label for="formFile" class="form-label">Upload File yang di butuhkan</label>
                                 <input class="form-control" type="file" id="formFile">
                             </div>
@@ -91,29 +83,15 @@
                                 <textarea class="form-control" id="keteranganTambahan" rows="3"></textarea>
                             </div>
 
+
                             <div class="mb-3">
                                 <label for="keteranganTambahan" class="form-label">Keterangan Tambahan</label>
                                 <textarea class="form-control" id="keteranganTambahan" rows="3"></textarea>
                             </div>
 
-                            <p class="mb-0 mt-5 fw-bold">Biaya</p>
-                            <div class="d-flex justify-content-between">
-                                <p>Pesanan</p>
-                                <h5 class="mb-0">Rp. 1.000.000</h5>
-
-                            </div>
-
                             <div class="d-flex justify-content-between">
                                 <p>Ongkir</p>
-                                <h5 class="mb-0">Rp. 12.000</h5>
-
-                            </div>
-
-                            <hr>
-
-                            <div class="d-flex justify-content-between">
-                                <p>Total</p>
-                                <h4 class="mb-5 fw-bold">Rp. 1.012.000</h4>
+                                <h5 class="mb-5">Rp. 12.000</h5>
 
                             </div>
 
