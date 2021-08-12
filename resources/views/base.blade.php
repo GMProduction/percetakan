@@ -19,7 +19,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick-theme.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet" />
-    
+    <script src="{{ asset('js/swal.js') }}"></script>
+
     @yield('moreCss');
 </head>
 
@@ -69,14 +70,12 @@
                         </svg>
                     </div>
 
-                    @php($login = false)
-                    @if ($login)
-                        <a href="/login" type="button" class="btn btn-outline-primary btn-sm">Login</a>
-                    @else
-                        <a href="/user">
+                    @if (auth()->user())
+                        <a href="/{{auth()->user()->roles}}">
                             <img class="profile-userpic" src="{{ asset('static-image/profile.png') }}" />
-
                         </a>
+                    @else
+                        <a href="/login" type="button" class="btn btn-outline-primary btn-sm">Login</a>
                     @endif
 
                 </div>
@@ -113,7 +112,7 @@
                             </td>
 
                             <td>
-                                <p>Jl. Kapten Mulyadi No. 126, Pasar Kliwon, Surakarta 
+                                <p>Jl. Kapten Mulyadi No. 126, Pasar Kliwon, Surakarta
                                 </p>
 
                             </td>
@@ -201,6 +200,8 @@
     <script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('slick/slick.min.js') }}"></script>
+    <script src="{{ asset('js/dialog.js') }}"></script>
+
     @yield('script')
 
 

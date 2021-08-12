@@ -21,7 +21,7 @@ class PesananController extends CustomController
             if ($p->custom) {
                 $dataPesanan[$key] = $p;
                 $custom            = json_decode($p->custom);
-                $dataCustom = [
+                $dataCustom        = [
                     'jenis'    => $custom->jenis,
                     'kategori' => $custom->kategori,
                     'satuan'   => $custom->satuan ?? null,
@@ -60,10 +60,23 @@ class PesananController extends CustomController
         return $pesanan;
     }
 
-    public function addHarga(){
-        $data = [
-            'total_harga' => $this->request->get('totalHarga'),
-            'custom' => ''
+    public function addHarga($id)
+    {
+        $pesanan    = Pesanan::find($id);
+        $js         = json_decode($pesanan->custom);
+        $dataCustom = [
+            'jenis'    => $js->jenis,
+            'kategori' => $js->kategori,
+            'satuan'   => (int)\request('hargaSatuan'),
+            'laminasi' => (int)\request('hargaLaminasi'),
         ];
+        $harga      = $this->request->get('totalHarga');
+        $harga      = str_replace(',', '', $harga);
+        $data       = [
+            'total_harga' => (int)$harga,
+            'custom'      => json_encode($dataCustom),
+        ];
+        $pesanan->update($data);
+        return response()->json('berhasil');
     }
 }

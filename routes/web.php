@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomDesainController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RajaOngkirController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,31 +25,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class,'index']);
+Route::get('/produk', [HomeController::class,'produk']);
+Route::get('/produk/detail/{id}', [HomeController::class,'detail']);
+Route::post('/produk/detail/{id}', [HomeController::class,'pesanan']);
 
 Route::get('/login', function () {
     return view('login');
 });
+Route::post('/login', [AuthController::class,'login']);
+Route::get('/logout', [AuthController::class,'logout']);
 
 Route::get('/register-page', function () {
     return view('registerPage');
 });
+Route::post('/register-page', [AuthController::class, 'registerMember']);
 
-Route::get('/detail', function () {
-    return view('detail');
-});
+
 
 Route::get('/user', function () {
     return view('user.dashboard');
 });
 
 
-
 Route::get('/user/keranjang', function () {
     return view('user/keranjang');
 });
+Route::get('/user/keranjang/get',[UserController::class,'keranjang']);
+Route::post('/user/keranjang/upload-image',[UserController::class,'uploadPayment']);
+Route::get('/user/get-bank',[UserController::class,'getBank']);
 
 Route::get('/user/menunggu', function () {
     return view('user/menunggu');
@@ -84,12 +91,16 @@ Route::prefix('/admin')->group(function (){
 
     Route::get('/pesanan', [PesananController::class,'index']);
     Route::get('/pesanan/{id}', [PesananController::class,'detail']);
+    Route::post('/pesanan/{id}/add-harga', [PesananController::class,'addHarga']);
 });
 
+Route::get('/kategori', [KategoriController::class,'dataKategori'])->name('produk_kategori');
+Route::get('/jenis-kertas', [JenisKertasController::class,'getJenisKertas'])->name('jenis_kertas');
 
+Route::match(['post','get'], '/custom',[CustomDesainController::class, 'index']);
 
-
-
+Route::get('/get-city',[RajaOngkirController::class,'getCity']);
+Route::get('/get-cost',[RajaOngkirController::class,'cost']);
 
 
 

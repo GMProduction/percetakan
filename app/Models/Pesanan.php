@@ -21,6 +21,9 @@ class Pesanan extends Model
         'keterangan',
         'status_desain',
         'url_gambar',
+        'url_file',
+        'custom',
+        'alamat'
     ];
 
     protected $with = ['getHarga','getUser.getPelanggan','getPembayaran',];
@@ -35,5 +38,9 @@ class Pesanan extends Model
 
     public function getPembayaran(){
         return $this->hasOne(Pembayaran::class,'id_pesanan');
+    }
+
+    public function getExpedisi(){
+        return $this->hasOne(Expedisi::class,'id_pesanan');
     }
 }

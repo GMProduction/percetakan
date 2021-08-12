@@ -55,7 +55,7 @@ return [
 
         'imageKategori' => [
             'driver' => 'local',
-            'root' => public_path() . '/images/ketegori',
+            'root' => public_path() . '/images/kategori',
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
@@ -67,6 +67,26 @@ return [
             'visibility' => 'public',
         ],
 
+        'imageCustom' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/custom',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
+        'imageFile' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/file',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
+        'imagePayment' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/payment',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
 
     ],
 

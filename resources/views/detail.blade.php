@@ -1,6 +1,8 @@
 @extends('base')
 
 @section('moreCss')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
 @endsection
 
 @section('content')
@@ -11,101 +13,105 @@
 
         <div>
             <div style="height: 130px"></div>
-            <h4 class="mb-4  fw-bold"><span class="text-primary">Nama Barang</span> (kategori)</h4>
+            <h4 class="mb-4  fw-bold"><span class="text-primary">{{$data->nama_produk}}</span> ({{$data->getKategori->nama_kategori}})</h4>
             <hr>
-
             <div class="row">
-
-
                 <div class="col-8">
-                    <img src="https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg" class="gambar-detail" />
+                    <img src="{{$data->url_gambar}}" class="gambar-detail"/>
                     <p class="mt-3 fw-bold mb-0">
-                        Tersedia Bahan:
+                        Bahan Tersedia :
                     </p>
-                    <p class="mb-0">
-                        Bahan 1
-                    </p>
-                    <p class="mb-0">
-                        Bahan 2
-                    </p>
-                    <p class="mb-0">
-                        Bahan 3
-                    </p>
-                    <p class="mt-3">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
-                        an unknown printer took a galley of type and scrambled it to make a type specimen book. It
-                        has survived not only five centuries, but also the leap into electronic typesetting,
-                        remaining essentially unchanged. It was popularised in the 1960s with the release of
-                        Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                        software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>
+                    @forelse($data->getHarga as $b)
+                        <p class="mb-0">
+                            {{$b->getJenis->nama_jenis}}
+                        </p>
+                    @empty
+                        <p class="mb-0">
+                            Belum ada data bahan
+                        </p>
+                    @endforelse
+                    <p class="mt-3">{{$data->deskripsi}}</p>
                 </div>
 
                 <div class="col-4">
 
                     <div class="table-container">
                         <h5 class="mb-5">Pesan Barang</h5>
-
-
-                        <form>
+                        <form id="form" enctype="multipart/form-data" onsubmit="return savePesanan()">
+                            @csrf
                             <div class="mb-3">
                                 <label for="qty" class="form-label">Jenis Kertas</label>
-                                <select class="form-select me-2" aria-label="Default select example" name="jenisKertas">
-                                    <option selected>Pilih Jenis Kertas</option>
-                                    <option value="1">Kertas 1</option>
-                                    <option value="2">Kertas 2</option>
+                                <select class="form-select me-2" aria-label="Default select example" id="jenisKertas" name="jenisKertas" required>
+                                    <option value="">Pilih data</option>
+                                    @forelse($data->getHarga as $h)
+                                        <option value="{{$h->id}}" data-harga="{{$h->harga}}">{{$h->getJenis->nama_jenis}} (Rp. {{number_format($h->harga,0)}})</option>
+                                    @empty
+                                        <option value="">Tidak ada data</option>
+                                    @endforelse
                                 </select>
                             </div>
 
                             <div class="mb-3">
                                 <label for="qty" class="form-label">Pakai Laminasi ?</label>
-                                <select class="form-select me-2" aria-label="Default select example" name="jenisKertas">
-                                    <option selected>Pilih Laminasi</option>
-                                    <option value="1">Ya</option>
-                                    <option value="2">Tidak</option>
+                                <select class="form-select me-2" aria-label="Default select example" id="laminasi" name="laminasi" required>
+                                    <option selected value="">Pilih Laminasi</option>
+                                    <option value="1">Ya (Rp. {{number_format($data->biaya_laminasi,0)}})</option>
+                                    <option value="0">Tidak</option>
                                 </select>
                             </div>
 
                             <div class="mb-3">
                                 <label for="qty" class="form-label">Qty</label>
-                                <input type="number" class="form-control" id="qty">
+                                <input type="number" class="form-control" id="qty" name="qty" value="0" required>
                             </div>
 
                             <div class="mt-3 mb-3 mb-2">
                                 <label for="formFile" class="form-label">Upload File yang di butuhkan</label>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" id="formFile" name="url_file" accept="image/jpeg, image/png">
                             </div>
 
                             <div class="mb-3">
                                 <label for="qty" class="form-label">Kota Pengiriman</label>
-                                <select class="form-select me-2" aria-label="Default select example" name="jenisKertas">
-                                    <option selected>Pilih Kota</option>
-                                    <option value="1">Solo</option>
-                                    <option value="2">Sukoharjo</option>
+                                <select class=" me-2 w-100" aria-label="Default select example" id="kota" name="kota" onchange="setOngkir()" required>
+
                                 </select>
                             </div>
+                            <div class="mb-3">
+                                <label for="qty" class="form-label">Expedisi</label>
+                                <select class=" me-2 w-100" aria-label="Default select example" id="kurir" name="kurir" onchange="setOngkir()">
+                                    <option selected value="jne">JNE</option>
+                                    <option value="tiki">TIKI</option>
+                                    <option value="pos">POS Indonesia</option>
+                                </select>
+                            </div>
+                            <div id="tipeKurir" class="mb-3"></div>
 
                             <div class="mb-3">
                                 <label for="keteranganTambahan" class="form-label">Alamat Detail Pengiriman</label>
-                                <textarea class="form-control" id="keteranganTambahan" rows="3"></textarea>
+                                <textarea class="form-control" id="keteranganTambahan" rows="3" name="alamat" required></textarea>
                             </div>
 
                             <div class="mb-3">
                                 <label for="keteranganTambahan" class="form-label">Keterangan Tambahan</label>
-                                <textarea class="form-control" id="keteranganTambahan" rows="3"></textarea>
+                                <textarea class="form-control" id="keteranganTambahan" rows="3" name="keterangan"></textarea>
                             </div>
-
+                            <input id="ongkir" name="ongkir" hidden>
+                            <input id="service" name="service" hidden>
+                            <input id="estimasi" name="estimasi" hidden>
+                            <input id="namaKota" name="nama_kota" hidden>
+                            <input id="propinsi" name="propinsi" hidden>
+                            <input id="propinsiid" name="propinsiid" hidden>
+                            <input id="totalHarga" name="totalHarga" hidden>
                             <p class="mb-0 mt-5 fw-bold">Biaya</p>
                             <div class="d-flex justify-content-between">
                                 <p>Pesanan</p>
-                                <h5 class="mb-0">Rp. 1.000.000</h5>
+                                <h5 class="mb-0">Rp. <span id="tampilHarga">0</span></h5>
 
                             </div>
 
                             <div class="d-flex justify-content-between">
                                 <p>Ongkir</p>
-                                <h5 class="mb-0">Rp. 12.000</h5>
+                                <h5 class="mb-0">Rp. <span id="tampilBiaya">0</span></h5>
 
                             </div>
 
@@ -113,7 +119,7 @@
 
                             <div class="d-flex justify-content-between">
                                 <p>Total</p>
-                                <h4 class="mb-5 fw-bold">Rp. 1.012.000</h4>
+                                <h4 class="mb-5 fw-bold">Rp. <span id="tampilTotal">0</span></h4>
 
                             </div>
 
@@ -123,13 +129,143 @@
                     </div>
                 </div>
             </div>
-
+        </div>
     </section>
 
 
 @endsection
 
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <script>
+        var idHarga, hargaProduk, hargaLaminasi, hargaPesanan, ongkir = 0;
+        $(document).ready(function () {
+            getCity()
+            hargaLaminasi = parseInt('{{$data->biaya_laminasi}}')
+        });
+
+        function afterOrder() {
+
+        }
+
+        function savePesanan() {
+            saveData('Simpan Pesanan', 'form');
+            return false;
+        }
+
+        $(document).on('change', '[name=tipePaket]', function () {
+            var service = $(this).val();
+            ongkir = $(this).data('biaya');
+            var estimasi = $(this).data('estimasi');
+            var total = hargaPesanan + ongkir;
+            $('#ongkir').val(ongkir);
+            $('#service').val(service);
+            $('#estimasi').val(estimasi);
+            $('#tampilBiaya').html(ongkir.toLocaleString());
+            $('#tampilTotal').html(total.toLocaleString());
+            $('#totalHarga').val(total);
+        })
+
+        $(document).on('change', '#jenisKertas, #laminasi, #qty', function () {
+            idHarga = $('#jenisKertas').val();
+            hargaProduk = $('#jenisKertas').find(':selected').data('harga');
+            var isLaminasi = $('#laminasi').val();
+            var qty = $('#qty').val() ?? '0';
+            hargaPesanan = hargaProduk * parseInt(qty);
+            if (isLaminasi === '1'){
+                hargaPesanan = (hargaProduk + hargaLaminasi) * parseInt(qty);
+            }
+            var total = hargaPesanan + ongkir;
+            $('#tampilHarga').html(hargaPesanan.toLocaleString());
+            $('#tampilTotal').html(total.toLocaleString());
+            $('#totalHarga').val(total);
+            console.log('laminasi '+hargaPesanan.toString());
+            console.log('harga produk '+hargaProduk);
+            console.log('harga laminasi '+hargaLaminasi);
+            console.log('qty '+parseInt(qty));
+            console.log('harga pesanan '+hargaPesanan);
+        })
+
+
+
+        function setOngkir() {
+            var kurir = $('#kurir').val();
+            var kota = $('#kota').val();
+            var namaKota = $('#kota').find(':selected').data('nama');
+            var propinsi = $('#kota').find(':selected').data('propinsi');
+            var propinsiid = $('#kota').find(':selected').data('propinsiid');
+            $('#namaKota').val(namaKota)
+            $('#propinsi').val(propinsi)
+            $('#propinsiid').val(propinsiid)
+            var data = {
+                'kurir': kurir,
+                'tujuan': kota
+            }
+            $('#tipeKurir').html('');
+            $.ajax({
+                url: '/get-cost',
+                dataType: 'json',
+                type: 'GET',
+                delay: 250,
+                // crossDomain: true,
+                data: data,
+
+                error: function (error, xhr, textStatus) {
+
+                },
+                success: function (data) {
+                    console.log(data)
+                    console.log(data['rajaongkir']['results'][0]['costs'])
+                    $('#tipeKurir').append('<label>Layanan Pengiriman</labell>');
+                    $.each(data['rajaongkir']['results'][0]['costs'], function (key, value) {
+                        $('#tipeKurir').append('<div class="form-check">\n' +
+                            '  <input class="form-check-input" type="radio" name="tipePaket" id="tipe' + key + '" data-estimasi="' + value['cost'][0]['etd'] + '" data-biaya="' + value['cost'][0]['value'] + '" value="' + value['service'] + '">\n' +
+                            '  <label class="form-check-label" for="tipe' + key + '">\n' +
+                            '    ' + value['service'] + ' ( ' + value['cost'][0]['etd'] + ' ) ' + value['cost'][0]['value'] + '\n' +
+                            '  </label>\n' +
+                            '</div>')
+                    })
+                },
+                headers: {
+                    'Accept': "application/json",
+                    'key': '7366bbad708dcf7d2f1b3d69e5f4219f',
+                    'Access-Control-Allow-Origin': 'http://localhost:8002/'
+                },
+                cache: true
+            })
+        }
+
+        function getCity() {
+            var select = $('#kota');
+            $.ajax({
+                url: '/get-city',
+                dataType: 'json',
+                type: 'GET',
+                delay: 250,
+                // crossDomain: true,
+                callback: '?',
+
+                error: function (error, xhr, textStatus) {
+
+                },
+                success: function (data) {
+                    console.log(data['rajaongkir'])
+                    select.append('<option value="">Pilih Kota Pengiriman</option>')
+                    $.each(data['rajaongkir']['results'], function (key, value) {
+                        select.append('<option value="' + value['city_id'] + '" data-nama="' + value['city_name'] + '" data-propinsi="' + value['province'] + '" data-propinsiid="' + value['province_id'] + '">' + value['city_name'] + '</option>')
+                    })
+                    select.select2();
+                },
+                headers: {
+                    'Accept': "application/json",
+                    'key': '7366bbad708dcf7d2f1b3d69e5f4219f',
+                    'Access-Control-Allow-Origin': 'http://localhost:8002/'
+                },
+
+                cache: true
+            })
+        }
+    </script>
 
 @endsection

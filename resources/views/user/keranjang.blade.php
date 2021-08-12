@@ -7,27 +7,9 @@
     <section class="container">
 
         <div class="row">
-            <div class="col-6">
-                <div class="item-box">
-                    <div class="d-flex">
-                        <img
-                            src="https://fastwork.id/blog/wp-content/uploads/2018/09/desain-undangan-pernikahan-736x540.jpg" />
-                        <div class="ms-4">
-                            <p class="title">Nama Produk</p>
-                            <p class="qty">Qty</p>
-                            <p class="keterangan">Keterangan</p>
-                            <p class="totalHarga">Total Harga</p>
-                        </div>
-
-                    </div>
-                    <div class="d-flex">
-                        <a class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
-                        data-bs-target="#uploadpembayaran">Upload Pembayaran</a>
-                    </div>
-                </div>
+            <div class="col-md-6 col-sm-12" id="dataPesanan">
             </div>
         </div>
-
 
 
         <!-- Modal Tambah-->
@@ -39,10 +21,17 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="formPayment" enctype="multipart/form-data" onsubmit="return savePayment()">
+                            @csrf
+                            <input id="id" name="id" hidden>
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Pilih Bank</label>
+                                <select id="bank" name="bank" class="form-select"></select>
+                            </div>
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Bukti Transfer</label>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" id="url_gambar" name="url_gambar" accept="image/jpeg, image/png">
+                                <a id="imgPay" href="" target="_blank"><img  class="mt-2" src="" style="width: 200px" /></a>
                             </div>
 
 
@@ -62,10 +51,89 @@
 @section('scriptUser')
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             $("#keranjang").addClass("active");
+            getData()
+            getBank()
+
         });
+
+        function getData() {
+            $.get('/user/keranjang/get',async function (data) {
+                $('#dataPesanan').html('');
+                await $.each(data, function (key, value) {
+                    console.log(value)
+                    var produkName = 'Custom';
+                    var bank = '', gambar;
+                    if (value['get_harga']) {
+                        produkName = value['get_harga']['get_produk']['nama_produk'];
+                    }
+
+                    if (value['get_pembayaran']){
+                        bank = value['get_pembayaran']['id_bank'];
+                        gambar = value['get_pembayaran']['url_gambar'];
+                    }
+                    $('#dataPesanan').append('<div class="item-box mb-3">\n' +
+                        '                    <div class="d-flex">\n' +
+                        '                        <img id=""\n' +
+                        '                             src="' + value['url_gambar'] + '" />\n' +
+                        '                        <div class="ms-4">\n' +
+                        '                            <p class="title">' + produkName + '</p>\n' +
+                        '                            <p class="qty">' + value['qty'] + '</p>\n' +
+                        '                            <p class="keterangan">' + value['keterangan'] + '</p>\n' +
+                        '                            <p class="totalHarga">Rp. ' + value['total_harga'].toLocaleString() + '</p>\n' +
+                        '                        </div>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="d-flex">\n' +
+                        '                        <a class="btn btn-primary btn-sm ms-auto" data-bank="'+bank+'" data-gambar="'+gambar+'" data-id="' + value['id'] + '" id="uploadPayment">Upload Pembayaran</a>\n' +
+                        '                    </div>\n' +
+                        '                </div>')
+                })
+            })
+        }
+
+        function getBank(idValue){
+            var select = $('#bank');
+            select.empty();
+            select.append('<option value="" disabled selected>Pilih Data</option>')
+            $.get('/user/get-bank', function (data) {
+                $.each(data, function (key, value) {
+                    if (idValue === value['id']) {
+                        select.append('<option value="' + value['id'] + '" selected>' + value['nama_bank'] + ' ( an. '+value['holder_bank']+' )</option>')
+                    } else {
+                        select.append('<option value="' + value['id'] + '">' + value['nama_bank'] + ' ( an. '+value['holder_bank']+' )</option>')
+                    }
+                })
+            })
+        }
+
+        $(document).on('click', '#uploadPayment', function () {
+            var id = $(this).data('id');
+            var gambar = $(this).data('gambar');
+            var bank = $(this).data('bank');
+            $('#uploadpembayaran #id').val(id);
+            $('#uploadpembayaran #imgPay').addClass('d-none');
+            if(bank){
+                $('#uploadpembayaran #imgPay').attr('href', gambar).removeClass('d-none');
+                $('#uploadpembayaran #imgPay img').attr('src', gambar);
+            }
+            $('#uploadpembayaran #url_gambar').val('');
+            $('#uploadpembayaran #bank').val(bank);
+            $('#uploadpembayaran').modal('show');
+        })
+
+        function afterSave() {
+            getData();
+            $('#uploadpembayaran').modal('hide');
+
+        }
+
+        function savePayment() {
+            saveData('Upload Bukti Transfer','formPayment','/user/keranjang/upload-image',afterSave)
+            return false;
+        }
+
     </script>
 
 @endsection
