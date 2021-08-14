@@ -1,7 +1,7 @@
 @extends('admin.base')
 
 @section('title')
-    Data Barang
+    Data Pelanggan
 @endsection
 
 @section('content')
@@ -22,7 +22,6 @@
                 <h5>Data Pelanggan</h5>
 
             </div>
-
 
             <table class="table table-striped table-bordered ">
                 <thead>

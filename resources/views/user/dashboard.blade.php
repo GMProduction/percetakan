@@ -25,10 +25,10 @@
                 <div class="col-md-12">
                     <p class="category">Selamat datang Joko</p>
                     <!-- Nav tabs -->
-                    <div class="card">
+                    <div class="card" style="min-height: 34vh">
                         <div class="card-header">
                             <ul class="nav nav-tabs justify-content-center" role="tablist">
-                               
+
                                 <li class="nav-item">
                                     <a id="keranjang" class="nav-link" data-toggle="tab" href="/user/keranjang" role="tab">
                                         <i class="bx bx-cart"></i> Keranjang
@@ -46,6 +46,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a id="pengerjaan" class="nav-link" data-toggle="tab" href="/user/pengerjaan" role="tab">
+                                        <i class='bx bx-message-rounded-edit'></i>Proses Pengerjaan
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a id="pengiriman" class="nav-link" data-toggle="tab" href="/user/pengiriman" role="tab">
                                         <i class='bx bxs-truck' ></i> Pengiriman
                                     </a>
@@ -58,7 +63,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a id="profil" class="nav-link" data-toggle="tab" href="user/profil" role="tab">
+                                    <a id="profil" class="nav-link" data-toggle="tab" href="/user/profile" role="tab">
                                         <i class='bx bx-user'></i> Profil
                                     </a>
                                 </li>
@@ -71,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -92,6 +97,7 @@
             $("#pengiriman").removeClass("active");
             $("#selesai").removeClass("active");
             $("#profil").removeClass("active");
+            $("#pengerjaan").removeClass("active");
 
             $('.slider').slick({
                 dots: true,

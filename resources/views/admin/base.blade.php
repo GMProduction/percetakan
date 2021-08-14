@@ -43,6 +43,12 @@
                     <span class="mx-2">Dashboard</span>
                 </li>
             </a>
+            <a href="/admin/kategori">
+                <li href="#" class="nav-link t-white">
+                    <i class="bx bxs-cube"></i>
+                    <span class="mx-2">Master Kategori</span>
+                </li>
+            </a>
 
             <a href="/admin/produk">
                 <li href="#" class="nav-link t-white">
@@ -50,7 +56,13 @@
                     <span class="mx-2">Master Produk</span>
                 </li>
             </a>
+            <a href="/admin/bank">
+                <li href="#" class="nav-link t-white">
+                    <i class="bx bxs-group"></i>
+                    <span class="mx-2">Data Bank</span>
+                </li>
 
+            </a>
 
             <a href="/admin/pelanggan">
                 <li href="#" class="nav-link t-white">

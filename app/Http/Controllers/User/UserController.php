@@ -6,6 +6,7 @@ use App\Helper\CustomController;
 use App\Http\Controllers\Controller;
 use App\Models\Bank;
 use App\Models\Pesanan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +18,73 @@ class UserController extends CustomController
     public function keranjang()
     {
         $pesanan = Pesanan::where([['status_bayar', '=', 0], ['id_pelanggan', '=', Auth::id()]])->get();
+        $data = [];
+        foreach ($pesanan as $key => $p){
+            if ($p->getPembayaran == null){
+                $data[$key] = $p;
+                $custom     = json_decode($p->custom);
+                $data[$key]    = Arr::set($data[$key], 'custom', $custom);
+            }
+        }
+        return $data;
+    }
 
-        return $pesanan;
+    public function menunggu()
+    {
+        $pesanan = Pesanan::where([['status_bayar', '=', 0], ['id_pelanggan', '=', Auth::id()]])->get();
+        $data = [];
+        foreach ($pesanan as $key => $p){
+            if ($p->getPembayaran != null){
+                $data[$key] = $p;
+                $custom     = json_decode($p->custom);
+                $data[$key]    = Arr::set($data[$key], 'custom', $custom);
+            }
+        }
+        return $data;
+    }
+
+    public function desain(){
+        $pesanan = Pesanan::with('getDesain')->where([['status_pengerjaan', '=', 1],['status_bayar', '=', 1], ['id_pelanggan', '=', Auth::id()]])->get();
+        $data = [];
+        foreach ($pesanan as $key => $p){
+            $data[$key] = $p;
+            $custom     = json_decode($p->custom);
+            $data[$key]    = Arr::set($data[$key], 'custom', $custom);
+        }
+        return $data;
+    }
+
+    public function pengerjaan(){
+        $pesanan = Pesanan::with('getDesain')->where([['status_pengerjaan', '=', 2],['status_bayar', '=', 1], ['id_pelanggan', '=', Auth::id()]])->get();
+        $data = [];
+        foreach ($pesanan as $key => $p){
+            $data[$key] = $p;
+            $custom     = json_decode($p->custom);
+            $data[$key]    = Arr::set($data[$key], 'custom', $custom);
+        }
+        return $data;
+    }
+
+    public function pengiriman(){
+        $pesanan = Pesanan::with('getDesain')->where([['status_pengerjaan', '=', 3],['status_bayar', '=', 1], ['id_pelanggan', '=', Auth::id()]])->get();
+        $data = [];
+        foreach ($pesanan as $key => $p){
+            $data[$key] = $p;
+            $custom     = json_decode($p->custom);
+            $data[$key]    = Arr::set($data[$key], 'custom', $custom);
+        }
+        return $data;
+    }
+
+    public function selesai(){
+        $pesanan = Pesanan::with('getDesain')->where([['status_pengerjaan', '=', 4],['status_bayar', '=', 1], ['id_pelanggan', '=', Auth::id()]])->get();
+        $data = [];
+        foreach ($pesanan as $key => $p){
+            $data[$key] = $p;
+            $custom     = json_decode($p->custom);
+            $data[$key]    = Arr::set($data[$key], 'custom', $custom);
+        }
+        return $data;
     }
 
     public function uploadPayment()
@@ -40,6 +106,8 @@ class UserController extends CustomController
         } else {
             $pesanan->getPembayaran()->create($data);
         }
+        return response()->json('berhasil',200);
+
     }
 
     public function getBank()
@@ -48,4 +116,18 @@ class UserController extends CustomController
 
         return $bank;
     }
+
+    public function konfirmasiDesain($id){
+        $pesanan = Pesanan::find($id);
+        $pesanan->update(['status_desain' => $this->request->get('status')]);
+        return response()->json('berhasil',200);
+    }
+
+    public function konfirmasi($id){
+        $pesanan = Pesanan::find($id);
+        $pesanan->update(['status_pengerjaan' => 4]);
+        return response()->json('berhasil',200);
+    }
+
+
 }

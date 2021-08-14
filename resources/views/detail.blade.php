@@ -150,8 +150,14 @@
         }
 
         function savePesanan() {
+            @if(auth()->user() && auth()->user()->roles == 'user')
             saveData('Simpan Pesanan', 'form');
             return false;
+            @else
+            swal('Silahkan login / register untuk dapat melakukan pemesanan');
+            return false;
+            @endif
+
         }
 
         $(document).on('change', '[name=tipePaket]', function () {

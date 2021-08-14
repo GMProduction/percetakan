@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HargaController;
 use App\Http\Controllers\Admin\JenisKertasController;
 use App\Http\Controllers\Admin\KategoriController;
@@ -11,7 +13,10 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomDesainController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RajaOngkirController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\PelangganMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,56 +47,98 @@ Route::get('/register-page', function () {
 Route::post('/register-page', [AuthController::class, 'registerMember']);
 
 
-
-Route::get('/user', function () {
-    return view('user.dashboard');
-});
-
-
-Route::get('/user/keranjang', function () {
-    return view('user/keranjang');
-});
-Route::get('/user/keranjang/get',[UserController::class,'keranjang']);
-Route::post('/user/keranjang/upload-image',[UserController::class,'uploadPayment']);
-Route::get('/user/get-bank',[UserController::class,'getBank']);
-
-Route::get('/user/menunggu', function () {
-    return view('user/menunggu');
-});
-
-Route::get('/user/proses', function () {
-    return view('user/proses-desain');
-});
-
-Route::get('/user/pengiriman', function () {
-    return view('user/pengiriman');
-});
-
-Route::get('/user/selesai', function () {
-    return view('user/selesai');
-});
-
-Route::get('/user/profil', function () {
-    return view('user/profil');
-});
-
-
-Route::prefix('/admin')->group(function (){
-    Route::get('/', function (){
-        return view('admin.dashboard');
+Route::prefix('/user')->middleware(PelangganMiddleware::class)->group(function (){
+    Route::get('/', function () {
+        return view('user.dashboard');
     });
-    Route::match(['post','get'],'/produk', [ProductController::class,'index']);
-    Route::get('/produk/kategori', [KategoriController::class,'dataKategori'])->name('produk_kategori');
-    Route::post('/produk/kategori', [KategoriController::class,'addKategori'])->name('add_kategori');
-    Route::get('/produk/{id}', [HargaController::class,'getProdukHarga'])->name('detail_produk');
-    Route::post('/produk/{id}', [HargaController::class,'addJenisHarga'])->name('detail_produk_add');
-    Route::get('/produk/delete/{id}', [HargaController::class,'deleteJenisHarga'])->name('detail_produk_delete');
+    Route::get('/get-bank',[UserController::class,'getBank']);
+
+    Route::prefix('/keranjang')->group(function (){
+        Route::get('/', function () {
+            return view('user.keranjang');
+        });
+        Route::get('/get',[UserController::class,'keranjang']);
+        Route::post('/upload-image',[UserController::class,'uploadPayment']);
+    });
+
+    Route::prefix('/menunggu')->group(function (){
+        Route::get('/', function () {
+            return view('user.menunggu');
+        });
+        Route::get('/get', [UserController::class,'menunggu']);
+    });
+
+    Route::prefix('/proses')->group(function (){
+        Route::get('/', function () {
+            return view('user.proses-desain');
+        });
+        Route::get('/get', [UserController::class,'desain']);
+        Route::post('/{id}/konfirmasi', [UserController::class,'konfirmasiDesain']);
+    });
+
+    Route::prefix('/pengerjaan')->group(function (){
+        Route::get('/', function () {
+            return view('user.pengerjaan');
+        });
+        Route::get('/get', [UserController::class,'pengerjaan']);
+    });
+
+    Route::prefix('/pengiriman')->group(function (){
+        Route::get('/', function () {
+            return view('user/pengiriman');
+        });
+        Route::get('/get', [UserController::class,'pengiriman']);
+        Route::post('/{id}/konfirmasi', [UserController::class,'konfirmasi']);
+    });
+
+    Route::prefix('/selesai')->group(function (){
+        Route::get('/', function () {
+            return view('user.selesai');
+        });
+        Route::get('/get', [UserController::class,'selesai']);
+
+    });
+
+    Route::prefix('/profile')->group(function (){
+        Route::get('/', function () {
+            return view('user.profil');
+        });
+        Route::get('/get', [ProfileController::class,'getUser']);
+        Route::post('/update-profile', [ProfileController::class,'updateProfile']);
+        Route::post('/update-image', [ProfileController::class,'updateImage']);
+
+    });
+
+});
+
+
+
+Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function (){
+    Route::get('/', [DashboardController::class,'index']);
+    Route::get('/kategori', [KategoriController::class,'index']);
+    Route::match(['post','get'],'/bank', [BankController::class,'index']);
+    Route::prefix('/produk')->group(function (){
+        Route::match(['post','get'],'/', [ProductController::class,'index']);
+        Route::get('/kategori', [KategoriController::class,'dataKategori'])->name('produk_kategori');
+        Route::post('/kategori', [KategoriController::class,'addKategori'])->name('add_kategori');
+        Route::get('/{id}', [HargaController::class,'getProdukHarga'])->name('detail_produk');
+        Route::post('/{id}', [HargaController::class,'addJenisHarga'])->name('detail_produk_add');
+        Route::get('/delete/{id}', [HargaController::class,'deleteJenisHarga'])->name('detail_produk_delete');
+    });
+
 
     Route::get('/pelanggan',[PelangganController::class,'index']);
 
-    Route::get('/pesanan', [PesananController::class,'index']);
-    Route::get('/pesanan/{id}', [PesananController::class,'detail']);
-    Route::post('/pesanan/{id}/add-harga', [PesananController::class,'addHarga']);
+    Route::prefix('/pesanan')->group(function (){
+        Route::get('/', [PesananController::class,'index']);
+        Route::get('/{id}', [PesananController::class,'detail']);
+        Route::post('/{id}/konfirmasi-pembayaran', [PesananController::class,'konfirmasiPembayaran']);
+        Route::post('/{id}/proses', [PesananController::class,'proses']);
+        Route::post('/{id}/desain', [PesananController::class,'addDesain']);
+        Route::post('/{id}/add-harga', [PesananController::class,'addHarga']);
+        Route::get('/{id}/expedisi', [PesananController::class,'getExpedisi']);
+    });
+
 });
 
 Route::get('/kategori', [KategoriController::class,'dataKategori'])->name('produk_kategori');
@@ -107,5 +154,3 @@ Route::get('/get-cost',[RajaOngkirController::class,'cost']);
 
 Route::post('/register',[AuthController::class,'register']);
 
-Route::get('/barang', [BarangController::class, 'index']);
-Route::post('/barang', [BarangController::class, 'createProduct']);

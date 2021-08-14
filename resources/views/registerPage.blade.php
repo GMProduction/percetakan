@@ -99,7 +99,7 @@
        location.replace('/');
     }
     function saveRegister() {
-        saveData('Register', 'form')
+        saveData('Register', 'form',null, afterRegister)
         return false;
     }
 </script>

@@ -11,6 +11,12 @@ use Illuminate\Support\Arr;
 class KategoriController extends CustomController
 {
     //
+
+    public function index(){
+        $kategori = Kategori::paginate(10);
+        return view('admin.kategori.kategori')->with(['data' => $kategori]);
+    }
+
     public function dataKategori()
     {
         $kategori = Kategori::all();

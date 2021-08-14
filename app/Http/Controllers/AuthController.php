@@ -28,7 +28,7 @@ class AuthController extends CustomController
             [
                 'nama'   => 'required|string',
                 'alamat' => 'required',
-                'no_hp'  => 'required|string',
+                'no_hp'  => 'required',
             ]
         );
 

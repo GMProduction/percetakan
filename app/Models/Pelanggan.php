@@ -13,6 +13,7 @@ class Pelanggan extends Model
         'nama',
         'alamat',
         'no_hp',
-        'id_user'
+        'id_user',
+        'image'
     ];
 }

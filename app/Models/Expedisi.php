@@ -19,4 +19,8 @@ class Expedisi extends Model
         'nama_propinsi',
         'biaya'
     ];
+
+    public function getPesanan(){
+        return $this->belongsTo(Pesanan::class, 'id_pesanan');
+    }
 }

@@ -11,26 +11,26 @@
             </div>
         </div>
 
+
     </section>
+
 
 @endsection
 
 @section('scriptUser')
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
-            $("#pengiriman").addClass("active");
+            $("#pengerjaan").addClass("active");
             getData();
         });
 
         function getData() {
-            $.get('/user/pengiriman/get', async function (data) {
+            $.get('/user/pengerjaan/get',async function (data) {
                 $('#dataPesanan').html('');
 
-                if (data.length > 0) {
-
-                    console.log(data.length)
+                if(data.length > 0) {
                     await $.each(data, function (key, value) {
                         console.log(value)
                         var produkName = 'Custom';
@@ -54,24 +54,14 @@
                             '                            <p class="totalHarga">Rp. ' + value['total_harga'].toLocaleString() + '</p>\n' +
                             '                        </div>\n' +
                             '                    </div>\n' +
-                            '                    <div class="d-flex">\n' +
-                            '                        <a class="btn btn-primary btn-sm ms-auto" id="diterima"  data-id="' + value['id'] + '" >Diterima</a>\n' +
-                            '                    </div>' +
                             '                </div>')
                     })
                 }else{
                     $('#dataPesanan').html('<h6 class="">Tidak ada data</h6>');
+
                 }
             })
         }
-
-        $(document).on('click', '#diterima', function () {
-            var id = $(this).data('id');
-            let data = {
-                '_token' : '{{csrf_token()}}',
-            }
-            saveDataObject('Terima Pesanan',data,'/user/pengiriman/'+id+'/konfirmasi',getData);
-        })
     </script>
 
 @endsection

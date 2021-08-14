@@ -13,71 +13,39 @@
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Nama Pelanggan
-                    </th>
-                    <th>
-                        Produk
-                    </th>
-                    <th>
-                        Jenis Kertas
-                    </th>
-
-                    <th>
-                        Qty
-                    </th>
-
-                    <th>
-                        Total Harga
-                    </th>
-
-                    <th>
-                        Tanggal
-                    </th>
-
-
-
-                    <th>
-                        Action
-                    </th>
-
+                <tr>
+                    <th>#</th>
+                    <th>Nama Pelanggan</th>
+                    <th>Ketegori</th>
+                    <th>Produk</th>
+                    <th>Qty</th>
+                    <th>Total Harga</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                </tr>
                 </thead>
 
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        Joko
-                    </td>
-                    <td>
-                        Undangan tipe A
-                    </td>
-                    <td>
-                        Art Carton 260g
-                    </td>
-                    <td>
-                        1000
-                    </td>
-                    <td>
-                        1000000
-                    </td>
-                    <td>
-                        25 Agustus 2021
-                    </td>
-
-
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm">Terima</button>
-                        <button type="button" class="btn btn-danger btn-sm">Tolak</button>
-                    </td>
-                </tr>
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td>{{$key+1}}</td>
+                        <td>{{$d->getUser->getPelanggan->nama ?? ''}}</td>
+                        <td>{{$d->getHarga ? $d->getHarga->getProduk->getKategori->nama_kategori : $d->kategori->nama_kategori}}</td>
+                        <td>{{$d->getHarga ? $d->getharga->getProduk->nama_produk : 'Custom' }}</td>
+                        <td>{{$d->qty}}</td>
+                        <td>Rp. {{$d->total_harga ? number_format($d->total_harga,0) : '-'}}</td>
+                        <td>{{date('d F Y', strtotime($d->tanggal_pesan))}}</td>
+                        <td>{{$d->status_pengerjaan == 0 ? 'Menunggu Konfirmasi' : ($d->status_pengerjaan == 1 ? 'Proses Desain' : ($d->status_pengerjaan == 2 ? 'Proses Pengerjaan' : ($d->status_pengerjaan == 3 ? 'Pengiriman' : 'Diterima')))}}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td class="text-center" colspan="8">Tidak ada pesanan</td>
+                    </tr>
+                @endforelse
 
             </table>
-
+            <div class="d-flex justify-content-end">
+                {{$data->links()}}
+            </div>
         </div>
 
     </section>

@@ -84,6 +84,7 @@
 
     </header>
     <main>
+
         <div class="content-wrapper">
             <a class="tombol-wa">
                 <img src="{{ asset('static-image/WhatsApp.png') }}" />

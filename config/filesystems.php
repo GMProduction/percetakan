@@ -88,6 +88,27 @@ return [
             'visibility' => 'public',
         ],
 
+        'imageDesain' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/desain',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
+        'imageProfile' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/profile',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
+        'imageBank' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/bank',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

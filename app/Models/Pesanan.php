@@ -43,4 +43,8 @@ class Pesanan extends Model
     public function getExpedisi(){
         return $this->hasOne(Expedisi::class,'id_pesanan');
     }
+
+    public function getDesain(){
+        return $this->hasOne(Desain::class, 'id_pesanan');
+    }
 }
