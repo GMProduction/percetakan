@@ -19,13 +19,15 @@ class CustomDesainController extends CustomController
 
         if (\request()->isMethod('POST')) {
             $dataPesanan = [
-                'laminasi'      => $this->request->get('laminasi'),
-                'tanggal_pesan' => $this->now->format('Y-m-d H-i-s'),
-                'qty'           => $this->request->get('qty'),
-                'biaya_ongkir'  => $this->request->get('ongkir'),
-                'keterangan'    => $this->request->get('keterangan'),
-                'alamat'        => $this->request->get('alamat'),
-                'id_pelanggan'  => Auth::id()
+                'laminasi'          => $this->request->get('laminasi'),
+                'tanggal_pesan'     => $this->now->format('Y-m-d H-i-s'),
+                'qty'               => $this->request->get('qty'),
+                'biaya_ongkir'      => $this->request->get('ongkir'),
+                'keterangan'        => $this->request->get('keterangan'),
+                'alamat'            => $this->request->get('alamat'),
+                'id_pelanggan'      => Auth::id(),
+                'status_pengerjaan' => 0,
+
             ];
             $dataCustom  = [
                 'jenis'    => $this->request->get('jenisKertas'),

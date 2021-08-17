@@ -57,7 +57,7 @@
                                     <input type="password" class="form-control" id="password" name="password_confirmation" required>
                                 </div>
                                 <div class="mb-2">
-                                    <label for="namaeditbarang" class="form-label t">No. Ho</label>
+                                    <label for="namaeditbarang" class="form-label t">No. Hp</label>
                                     <input type="number" class="form-control" id="no_hp" name="no_hp" required>
                                 </div>
                                 <div class="mb-2">
