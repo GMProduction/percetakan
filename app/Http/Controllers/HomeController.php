@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\CustomController;
+use App\Models\Baner;
 use App\Models\Kategori;
 use App\Models\Pesanan;
 use App\Models\Produk;
@@ -81,5 +82,10 @@ class HomeController extends CustomController
         $pesanan->getExpedisi()->create($dataExpedisi);
 
         return response()->json('berhasil');
+    }
+
+    public function baner(){
+        $baner = Baner::all();
+        return $baner;
     }
 }

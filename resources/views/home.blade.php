@@ -9,9 +9,7 @@
         <div style="height: 80px"></div>
 
         <div class="slider">
-            <img src="{{ asset('static-image/dubafest.jpg') }}"/>
-            <img src="{{ asset('static-image/dubafest.jpg') }}"/>
-            <img src="{{ asset('static-image/dubafest.jpg') }}"/>
+
         </div>
 
         <div style="height: 50px"></div>
@@ -112,17 +110,32 @@
 
     <script>
         $(document).ready(function () {
-            $('.slider').slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                fade: true,
-                cssEase: 'linear',
-                autoplay: true,
-                autoplaySpeed: 2000,
-                arrows: false
-            });
+            getBaner()
         });
+
+        function getBaner(){
+            $.get('/baner', function (data) {
+                var slider = $('.slider');
+                if (data.length > 0){
+                    $.each(data, function (key, value) {
+                        slider.append('<a target="_blank" href="'+value['url_web']+'"><img src="'+value['url_gambar']+'"/></a>')
+                    })
+
+                    slider.slick({
+                        dots: true,
+                        infinite: true,
+                        speed: 500,
+                        fade: true,
+                        cssEase: 'linear',
+                        autoplay: true,
+                        autoplaySpeed: 2000,
+                        arrows: false
+                    });
+                }else{
+                    slider.append('<h4 class="text-center">Tidak ada baner<h4>')
+                }
+            })
+        }
     </script>
 
 @endsection
