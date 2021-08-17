@@ -49,7 +49,12 @@
                     <span class="mx-2">Master Kategori</span>
                 </li>
             </a>
-
+            <a href="/admin/jenis-kertas">
+                <li href="#" class="nav-link t-white">
+                    <i class="bx bxs-cube"></i>
+                    <span class="mx-2">Master Jenis Kertas</span>
+                </li>
+            </a>
             <a href="/admin/produk">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bxs-cube"></i>

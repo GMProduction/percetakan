@@ -129,6 +129,8 @@ Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function (){
 
     Route::get('/pelanggan',[PelangganController::class,'index']);
 
+    Route::match(['post','get'],'/jenis-kertas',[JenisKertasController::class,'index']);
+
     Route::prefix('/pesanan')->group(function (){
         Route::get('/', [PesananController::class,'index']);
         Route::get('/{id}', [PesananController::class,'detail']);
