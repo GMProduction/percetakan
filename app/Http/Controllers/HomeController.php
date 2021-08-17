@@ -53,7 +53,8 @@ class HomeController extends CustomController
             'id_harga'      => $this->request->get('jenisKertas'),
             'total_harga'   => $this->request->get('totalHarga'),
             'url_gambar'    => $produk->url_gambar,
-            'status_pengerjaan' => 0
+            'status_pengerjaan' => 0,
+            'status_desain' => 0
         ];
 
         $dataExpedisi = [
