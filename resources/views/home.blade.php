@@ -9,8 +9,7 @@
         <div style="height: 80px"></div>
 
         <div class="slider">
-            <img src="https://www.pranataprinting.com/wp-content/uploads/2017/03/7-Tips-Membuat-Desain-Kartu-Nama-Atau-ID-Card-Untuk-Bisnis.jpg"/>
-            <img src="https://2.bp.blogspot.com/-TYb3lizEhTo/WuF_esUhD2I/AAAAAAAACQo/36VsBTOXMTE4ArL4jgHNaGwKWXQbe7AigCLcBGAs/s1600/Jasa%2Bdesain%2Bundangan.jpg"/>
+
         </div>
 
         <div style="height: 50px"></div>
@@ -111,17 +110,32 @@
 
     <script>
         $(document).ready(function () {
-            $('.slider').slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                fade: true,
-                cssEase: 'linear',
-                autoplay: true,
-                autoplaySpeed: 2000,
-                arrows: false
-            });
+            getBaner()
         });
+
+        function getBaner(){
+            $.get('/baner', function (data) {
+                var slider = $('.slider');
+                if (data.length > 0){
+                    $.each(data, function (key, value) {
+                        slider.append('<a target="_blank" href="'+value['url_web']+'"><img src="'+value['url_gambar']+'"/></a>')
+                    })
+
+                    slider.slick({
+                        dots: true,
+                        infinite: true,
+                        speed: 500,
+                        fade: true,
+                        cssEase: 'linear',
+                        autoplay: true,
+                        autoplaySpeed: 2000,
+                        arrows: false
+                    });
+                }else{
+                    slider.append('<h4 class="text-center">Tidak ada baner<h4>')
+                }
+            })
+        }
     </script>
 
 @endsection

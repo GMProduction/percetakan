@@ -108,6 +108,12 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
+        'imageBaner' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/baner',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
 
     ],
 

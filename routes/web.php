@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BanerController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HargaController;
@@ -141,6 +142,9 @@ Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function (){
         Route::get('/{id}/expedisi', [PesananController::class,'getExpedisi']);
     });
 
+    Route::match(['post','get'],'/baner', [BanerController::class,'index']);
+
+
 });
 
 Route::get('/kategori', [KategoriController::class,'dataKategori'])->name('produk_kategori');
@@ -150,6 +154,7 @@ Route::match(['post','get'], '/custom',[CustomDesainController::class, 'index'])
 
 Route::get('/get-city',[RajaOngkirController::class,'getCity']);
 Route::get('/get-cost',[RajaOngkirController::class,'cost']);
+Route::get('/baner', [HomeController::class,'baner']);
 
 
 

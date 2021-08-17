@@ -10,7 +10,7 @@ class PelangganController extends CustomController
 {
     //
     public function index(){
-        $user = User::with('getPelanggan')->paginate(10);
+        $user = User::with('getPelanggan')->where('roles','=','user')->paginate(10);
         return view('admin.pelanggan.pelanggan')->with(['data' => $user]);
     }
 }

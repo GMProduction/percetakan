@@ -77,6 +77,13 @@
 
             </a>
 
+            <a href="/admin/baner">
+                <li href="#" class="nav-link t-white">
+                    <i class="bx bxs-group"></i>
+                    <span class="mx-2">Data Baner</span>
+                </li>
+
+            </a>
 
             <a href="/admin/pesanan">
                 <li href="#" class="nav-link t-white">
