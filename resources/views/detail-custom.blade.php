@@ -22,7 +22,7 @@
 
 
                 <div class="col-8">
-                    <img src="https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg" class="gambar-detail"/>
+                    <img src="{{ asset('static-image/own_design.jpg') }}" class="gambar-detail"/>
                     <p class="mt-3 fw-bold mb-0">
                         Custom Desain:
                     </p>
