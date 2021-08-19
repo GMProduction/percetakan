@@ -11,6 +11,30 @@
             </div>
         </div>
 
+        <div class="modal fade" id="desain" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Desain</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="d-flex justify-content-center">
+                            <a id="imgDesain" style="cursor: pointer"
+                               href=""
+                               target="_blank">
+                                <img src=""
+                                     style="width: 400px; object-fit: cover"/>
+                            </a>
+                        </div>
+                        <div>
+                            <div id="statusDesain"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 @endsection
@@ -28,7 +52,7 @@
             $.get('/user/pengiriman/get', async function (data) {
                 $('#dataPesanan').html('');
 
-                if (data.length > 0) {
+                if (data) {
 
                     console.log(data.length)
                     await $.each(data, function (key, value) {
@@ -48,14 +72,17 @@
                             '                        <img id=""\n' +
                             '                             src="' + value['url_gambar'] + '" />\n' +
                             '                        <div class="ms-4">\n' +
+                            '                            <p class="qty fw-bold">#' + value['id'] + '</p>\n' +
                             '                            <p class="title">' + produkName + '</p>\n' +
-                            '                            <p class="qty">' + value['qty'] + '</p>\n' +
+                            '                            <p class="qty">Qty : ' + value['qty'] + '</p>\n' +
                             '                            <p class="keterangan">' + value['keterangan'] + '</p>\n' +
                             '                            <p class="totalHarga">Rp. ' + value['total_harga'].toLocaleString() + '</p>\n' +
                             '                        </div>\n' +
                             '                    </div>\n' +
-                            '                    <div class="d-flex">\n' +
-                            '                        <a class="btn btn-primary btn-sm ms-auto" id="diterima"  data-id="' + value['id'] + '" >Diterima</a>\n' +
+                            '                    <div class="d-flex justify-content-end">\n' +
+                            '                        <a class="btn btn-warning btn-sm" id="invoice" data-id="' + value['id'] + '" ><i class="bx bx-file"></i></a>' +
+                            '                        <a class="btn btn-success btn-sm mx-2" id="desainData" data-status="' + value['status_desain'] + '" data-id="' + value['id'] + '" data-image="' + value['get_desain']['url_desain'] + '">Lihat Desain</a>' +
+                            '                        <a class="btn btn-primary btn-sm" id="diterima"  data-id="' + value['id'] + '" >Diterima</a>\n' +
                             '                    </div>' +
                             '                </div>')
                     })
@@ -71,6 +98,24 @@
                 '_token' : '{{csrf_token()}}',
             }
             saveDataObject('Terima Pesanan',data,'/user/pengiriman/'+id+'/konfirmasi',getData);
+        })
+
+        $(document).on('click', '#desainData', function () {
+            idpesanan = $(this).data('id');
+            var image = $(this).data('image');
+            var status = $(this).data('status');
+            $('#statusDesain').html('');
+            $('#btnKonfirmasi').addClass('d-none')
+            if (status === 1) {
+                $('#btnKonfirmasi').removeClass('d-none').addClass('m-3')
+            } else if (status === 2) {
+                $('#statusDesain').html('<label class="fw-bold m-3">Desain Ditolak</label>');
+            }  else if (status === 3) {
+                $('#statusDesain').html('<label class="fw-bold m-3">Desain Diterima</label>');
+            }
+            $('#desain #imgDesain').attr('href', image);
+            $('#desain #imgDesain img').attr('src', image);
+            $('#desain').modal('show')
         })
     </script>
 

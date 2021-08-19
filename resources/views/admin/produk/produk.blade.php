@@ -87,7 +87,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Jenis Kertas</th>
-                                    <th>harga</th>
+                                    <th>Harga</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -292,7 +292,7 @@
                         row = '<tr>' +
                             '<td>' + parseInt(key + 1) + '</td>' +
                             '<td>' + value['get_jenis']['nama_jenis'] + '</td>' +
-                            '<td>' + value['harga'] + '</td>' +
+                            '<td>' + value['harga'].toLocaleString() + '</td>' +
                             '<td><a class="btn btn-sm btn-success" id="editDataProduk" data-id="' + value['id'] + '"  data-jenis="' + value['id_jenis'] + '" data-harga="' + value['harga'] + '">Edit</a> ' +
                             '<a class="btn btn-sm btn-danger"  id="deleteDataProduk" data-id="' + value['id'] + '" data-jenis="' + value['jenis_kertas'] + '">Hapus</a></td>' +
                             '</tr>';

@@ -48,8 +48,8 @@
                         <td>{{$d->getHarga ? $d->getharga->getProduk->nama_produk : 'Custom' }}</td>
                         <td>{{$d->qty}}</td>
                         <td>Rp. {{$d->total_harga ? number_format($d->total_harga,0) : '-'}}</td>
-                        <td>{{$d->status_pengerjaan == 0 ? 'Menunggu Konfirmasi' : ($d->status_pengerjaan == 1 ? 'Proses Desain' : ($d->status_pengerjaan == 2 ? 'Proses Pengerjaan' : ($d->status_pengerjaan == 3 ? 'Pengiriman' : 'Diterima')))}}</td>
-                        <td>{{$d->status_desain === 0 ? 'Proses Desain' : ($d->status_desain === 1 ? 'Desain Dikirim' : ($d->status_desain === 2 ? 'Desain Ditolak' : ($d->status_desain === 3 ? 'Desain DIterima' : 'Menunggu Pembayaran')))}}</td>
+                        <td>{{$d->status_pengerjaan == 0 ? ($d->getPembayaran ? 'Menunggu Konfirmasi' : 'Menunggu Pembayaran') : ($d->status_pengerjaan == 1 ? 'Proses Desain' : ($d->status_pengerjaan == 2 ? 'Proses Pengerjaan' : ($d->status_pengerjaan == 3 ? 'Pengiriman' : ($d->status_pengerjaan == 4 ? 'Diterima' : 'Menunggu Pembayaran'))))}}</td>
+                        <td>{{$d->status_desain === 0 ? 'Proses Desain' : ($d->status_desain === 1 ? 'Desain Dikirim' : ($d->status_desain === 2 ? 'Desain Ditolak' : ($d->status_desain === 3 ? 'Desain Diterima' : 'Menunggu Pembayaran')))}}</td>
                         <td>{{$d->status_bayar == 0 ? 'Belum' : 'Lunas'}}</td>
                         <td>
                             @if( $d->getHarga || isset($d->custom['satuan']))
@@ -70,7 +70,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="8">Tidak ada pesanan</td>
+                        <td class="text-center" colspan="10">Tidak ada pesanan</td>
                     </tr>
                 @endforelse
             </table>
@@ -467,7 +467,7 @@
             var satuan = $('#hHargaSatuan').val() === '' ? 0 : parseInt($('#hHargaSatuan').val());
             var laminasi = $('#hHargaLaminasi').val() === '' ? 0 : parseInt($('#hHargaLaminasi').val());
             var qty = parseInt($('#hQty').val());
-            var ongkir = parseInt($('#hBiayaOngkir').val());
+            var ongkir = parseInt($('#hBiayaOngkir').val().replace(',',''));
             var total = (((satuan + laminasi) * qty) + ongkir);
 
             $('#hTotalHarga').val(total.toLocaleString())
@@ -495,7 +495,10 @@
                 $('#statusPembayaran').html('')
                 $('#btnKonfirmasi').removeClass('d-none')
                 var btnProses;
-
+            console.log(data)
+                if (!data['get_pembayaran']){
+                    $('#btnKonfirmasi').addClass('d-none')
+                }
                 if (data['status_bayar'] === 1) {
                     $('#statusPembayaran').html('<label class="fw-bold">Diterima</label>')
                     $('#btnKonfirmasi').addClass('d-none')
@@ -554,6 +557,8 @@
         $(document).on('click', '#buatHarga', function () {
             var id = $(this).data('id');
             getBuatHarga(id)
+            $('#modalbuatharga #hHargaSatuan').val('0')
+            $('#modalbuatharga #hHargaLaminasi').val('0')
             $('#modalbuatharga').modal('show')
         })
 
@@ -567,8 +572,11 @@
                 $('#modalbuatharga #hPakaiLaminasi').val(data['laminasi'] === 0 ? 'Tidak' : 'Ya');
                 $('#modalbuatharga #hJenisKertas').val(data['get_harga'] ? data['get_harga']['get_jenis']['nama_jenis'] : data['jenis']['nama_jenis']);
                 $('#modalbuatharga #hQty').val(data['qty']);
-                $('#modalbuatharga #hBiayaOngkir').val(data['biaya_ongkir']);
-
+                $('#modalbuatharga #hBiayaOngkir').val(data['biaya_ongkir'].toLocaleString());
+                $('#modalbuatharga #hHargaLaminasi').attr('readonly','');
+                if (data['laminasi'] === 1){
+                    $('#modalbuatharga #hHargaLaminasi').removeAttr('readonly');
+                }
                 $('#modalbuatharga #hKeterangan').val(data['keterangan']);
                 $('#modalbuatharga #imgProduk').attr('href', data['url_gambar']);
                 $('#modalbuatharga #imgProduk img').attr('src', data['url_gambar']);

@@ -71,7 +71,7 @@ var idpesanan;
         function getData() {
             $.get('/user/proses/get', async function (data) {
                 $('#dataPesanan').html('');
-                if(data.length > 0) {
+                if(data) {
 
                     await $.each(data, function (key, value) {
                         console.log(value)
@@ -96,16 +96,22 @@ var idpesanan;
                             '                        <img id=""\n' +
                             '                             src="' + value['url_gambar'] + '" />\n' +
                             '                        <div class="ms-4">\n' +
+                            '                            <p class="qty fw-bold">#' + value['id'] + '</p>\n' +
                             '                            <p class="title">' + produkName + '</p>\n' +
-                            '                            <p class="qty">' + value['qty'] + '</p>\n' +
+                            '                            <p class="qty">Qty : ' + value['qty'] + '</p>\n' +
                             '                            <p class="keterangan">' + value['keterangan'] + '</p>\n' +
                             '                            <p class="totalHarga">Rp. ' + totalHarga + '</p>\n' +
                             '                        </div>\n' +
                             '                    </div>\n' +
-                            '                    <div class="d-flex">\n' +
-                            '                        <a class="btn btn-success btn-sm ms-auto" id="desainData" data-status="' + value['status_desain'] + '" data-id="' + value['id'] + '" data-image="' + value['get_desain']['url_desain'] + '">Lihat Desain</a>\n' +
-                            '                    </div>\n' +
+                            '                    <div class="d-flex" id="">\n' +
+                            '                    <a class="btn btn-warning btn-sm ms-auto mx-2" id="invoice" data-id="' + value['id'] + '" ><i class="bx bx-file"></i></a>' +
+                            '                    <div id="btnLihatDesain"><div>' +
+                            '</div>\n' +
                             '                </div>')
+                        if (value['get_desain']){
+                            $('#btnLihatDesain').html('<a class="btn btn-success btn-sm ms-auto" id="desainData" data-status="' + value['status_desain'] + '" data-id="' + value['id'] + '" data-image="' + value['get_desain']['url_desain'] + '">Lihat Desain</a>')
+                        }
+
                     })
                 }else{
                     $('#dataPesanan').html('<h6 class="">Tidak ada data</h6>');

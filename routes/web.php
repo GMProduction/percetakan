@@ -18,6 +18,7 @@ use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\PelangganMiddleware;
+use App\Models\Bank;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,7 +57,8 @@ Route::prefix('/user')->middleware(PelangganMiddleware::class)->group(function (
 
     Route::prefix('/keranjang')->group(function (){
         Route::get('/', function () {
-            return view('user.keranjang');
+            $bank = Bank::all();
+            return view('user.keranjang')->with(['bank' => $bank]);
         });
         Route::get('/get',[UserController::class,'keranjang']);
         Route::post('/upload-image',[UserController::class,'uploadPayment']);
@@ -99,6 +101,8 @@ Route::prefix('/user')->middleware(PelangganMiddleware::class)->group(function (
         Route::get('/get', [UserController::class,'selesai']);
 
     });
+
+    Route::get('/produk/{id}', [UserController::class,'getProductId']);
 
     Route::prefix('/profile')->group(function (){
         Route::get('/', function () {

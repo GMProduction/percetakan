@@ -28,8 +28,9 @@ class HargaController extends Controller
 
         if (\request('id')) {
             $harga = Harga::find(\request('id'));
+
             $harga->update([
-                'jenis_kertas' => $field['jenis_kertas'],
+                'id_jenis' => $field['id_jenis'],
                 'harga' => $field['harga'],
             ]);
         } else {

@@ -32,8 +32,12 @@
                     <a href="/">
                         <img src="{{ asset('static-image/logo.png') }}" style="height: 40px;" />
 
+
                     </a>
 
+                </div>
+                <div class="ms-5">
+                    <h5>Sistem Informasi Pemesanan Jasa Cetak</h5>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,7 +104,7 @@
     <main>
 
         <div class="content-wrapper">
-            <a class="tombol-wa">
+            <a class="tombol-wa" target="_blank" href="https://wa.me/send?phone=6289654649151">
                 <img src="{{ asset('static-image/WhatsApp.png') }}" />
             </a>
             @yield('content')
@@ -216,7 +220,12 @@
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('slick/slick.min.js') }}"></script>
     <script src="{{ asset('js/dialog.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown()
 
+    })
+</script>
     @yield('script')
 
 
