@@ -41,4 +41,9 @@ class BanerController extends CustomController
         $baner = Baner::paginate(10);
         return view('admin.baner.baner')->with(['data' => $baner]);
     }
+
+    function delete($id){
+        Baner::destroy($id);
+        return response()->json('berhasil');
+    }
 }

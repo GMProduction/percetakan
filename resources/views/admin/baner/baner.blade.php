@@ -30,8 +30,9 @@
                         <td width="20">{{$key+1}}</td>
                         <td width="100"><img src="{{$d->url_gambar}}" height="75"></td>
                         <td>{{$d->url_web}}</td>
-                        <td width="50">
+                        <td width="150">
                             <a class="btn btn-sm btn-primary" id="editData" data-id="{{$d->id}}" data-link="{{$d->url_web}}" data-image="{{$d->url_gambar}}">Edit</a>
+                            <a class="btn btn-sm btn-danger" id="deleteData" data-id="{{$d->id}}">Delete</a>
                         </td>
                     </tr>
                 @empty
@@ -98,6 +99,12 @@
         $('#tambahkategori #url_gambar').val('')
         $('#tambahkategori #imgKate').attr('src',$(this).data('image'))
         $('#tambahkategori').modal('show')
+    })
+
+    $(document).on('click', '#deleteData', function () {
+        var id = $(this).data('id');
+        deleteData('', '/admin/baner/'+id+'/delete');
+        return false;
     })
 
     function saveKategori() {

@@ -71,9 +71,23 @@
                     </div>
 
                     @if (auth()->user())
-                        <a href="/{{auth()->user()->roles}}">
-                            <img class="profile-userpic" src="{{ asset('static-image/profile.png') }}" />
+                        <a style="position: relative;" href="/user/keranjang">
+                            <i class='bx bx-cart-alt profile-userpic me-3' style="font-size: 1.7rem; position: relative;">
+                                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden">New alerts</span>
+                                  </span>
+                            </i>
                         </a>
+                        <div class="dropdown">
+                            <a class=" dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="profile-userpic" src="{{ asset('static-image/profile.png') }}"/>
+                            </a>
+                            <div class="dropdown-menu  dropdown-menu-right">
+                                <a href="/{{auth()->user()->roles}}" class="dropdown-item" >Dashboard</a>
+                                <a href="/logout" class="dropdown-item" >Logout</a>
+                            </div>
+                        </div>
+
                     @else
                         <a href="/login" type="button" class="btn btn-outline-primary btn-sm">Login</a>
                     @endif

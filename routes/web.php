@@ -143,6 +143,7 @@ Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function (){
     });
 
     Route::match(['post','get'],'/baner', [BanerController::class,'index']);
+    Route::get('/baner/{id}/delete', [BanerController::class,'delete']);
 
 
 });
