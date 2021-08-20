@@ -29,8 +29,14 @@ class HomeController extends CustomController
     public function produk()
     {
         $produk = Produk::filter(\request('kategori'))->paginate(8)->withQueryString();
+        $kategori = Kategori::where('nama_kategori', '=', \request('kategori'))->first();
+        $data     = [
+            'data'     => $produk,
+            'kategori' => $kategori,
+        ];
 
-        return view('produk')->with(['data' => $produk]);
+
+        return view('produk')->with($data);
     }
 
     public function detail($id)

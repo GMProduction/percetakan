@@ -10,7 +10,7 @@
 
 
         <div class="slider">
-            <img src="https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg" alt="img04"/>
+            <img src="{{$kategori ? $kategori->url_gambar : 'https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg'}}" alt="img04"/>
         </div>
         <div style="height: 50px"></div>
     </section>

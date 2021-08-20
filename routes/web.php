@@ -61,6 +61,7 @@ Route::prefix('/user')->middleware(PelangganMiddleware::class)->group(function (
             $bank = Bank::all();
             return view('user.keranjang')->with(['bank' => $bank]);
         });
+        Route::get('/{id}/delete', [UserController::class, 'deleteKeranjang']);
         Route::get('/get',[UserController::class,'keranjang']);
         Route::post('/upload-image',[UserController::class,'uploadPayment']);
     });

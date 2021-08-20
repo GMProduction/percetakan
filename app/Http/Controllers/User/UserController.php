@@ -189,4 +189,9 @@ class UserController extends CustomController
         return response()->json('berhasil', 200);
     }
 
+    public function deleteKeranjang($id){
+        Pesanan::destroy($id);
+        return response()->json('berhasil');
+    }
+
 }
