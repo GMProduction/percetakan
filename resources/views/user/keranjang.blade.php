@@ -112,6 +112,7 @@
                             '                             src="' + value['url_gambar'] + '" />\n' +
                             '                        <div class="ms-4">\n' +
                             '                            <p class="title">' + produkName + '</p>\n' +
+                            '                            <p class="title">' + produkName + '</p>\n' +
                             '                            <p class="qty">Qty : ' + value['qty'] + '</p>\n' +
                             '                            <p class="keterangan">' + value['keterangan'] + '</p>\n' +
                             '                            <p class="totalHarga">Rp. ' + totalHarga + '</p>\n' +

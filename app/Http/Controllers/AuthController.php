@@ -39,12 +39,13 @@ class AuthController extends CustomController
                 'password' => Hash::make($fieldUser['password']),
             ]
         );
+        $number = strpos($fieldMember['no_hp'],"0") == 0 ? preg_replace('/0/','62',$fieldMember['no_hp'],1) : $fieldMember['no_hp'];
 
         $member = $user->getPelanggan()->create(
             [
                 'nama'   => $fieldMember['nama'],
                 'alamat' => $fieldMember['alamat'],
-                'no_hp'  => $fieldMember['no_hp'],
+                'no_hp'  => $number,
             ]
         );
 

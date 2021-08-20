@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HargaController;
 use App\Http\Controllers\Admin\JenisKertasController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\PelangganController;
 use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\ProductController;
@@ -148,6 +149,7 @@ Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function (){
 
     Route::match(['post','get'],'/baner', [BanerController::class,'index']);
     Route::get('/baner/{id}/delete', [BanerController::class,'delete']);
+    Route::get('/laporan', [LaporanController::class,'index']);
 
 
 });
