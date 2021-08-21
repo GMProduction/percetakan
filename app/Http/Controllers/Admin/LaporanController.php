@@ -13,11 +13,15 @@ class LaporanController extends Controller
 {
     //
     public function index(){
+        $total = Pesanan::where('status_pengerjaan','=',4)->sum('total_harga');
         $pesanan     = Pesanan::where('status_pengerjaan','=',4)->latest('updated_at')->paginate(10);
+
         $dataPesanan = [];
         foreach ($pesanan as $key => $p) {
+            if ($p->getHarga){
+                Arr::add($p, 'harga_satuan', $p->getHarga->harga);
+            }
             if ($p->custom) {
-                $dataPesanan[$key] = $p;
                 $custom            = json_decode($p->custom);
                 $dataCustom        = [
                     'jenis'    => $custom->jenis,
@@ -27,12 +31,17 @@ class LaporanController extends Controller
                 ];
                 $jenis             = JenisKertas::find($custom->jenis);
                 $kategori          = Kategori::find($custom->kategori);
-                $dataPesanan[$key] = Arr::add($dataPesanan[$key], 'jenis', $jenis);
-                $dataPesanan[$key] = Arr::add($dataPesanan[$key], 'kategori', $kategori);
-                $dataPesanan[$key] = Arr::set($dataPesanan[$key], 'custom', $dataCustom);
-
+                Arr::add($p, 'jenis', $jenis);
+                Arr::add($p, 'kategori', $kategori);
+                Arr::set($p, 'custom', $dataCustom);
+                Arr::add($p, 'harga_satuan', $custom->satuan);
             }
         }
-        return view('admin.laporan')->with(['data' => $pesanan]);
+
+        $data = [
+            'data' => $pesanan,
+            'total' => $total
+        ];
+        return view('admin.laporan')->with($data);
     }
 }
