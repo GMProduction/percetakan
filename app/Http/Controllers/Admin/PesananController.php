@@ -17,7 +17,27 @@ class PesananController extends CustomController
     //
     public function index()
     {
-        $pesanan     = Pesanan::with('getDesain')->latest('updated_at')->paginate(10);
+        $pesanan     = Pesanan::with('getDesain')->latest('updated_at');
+
+        $status = \request('status');
+        $codeStatus = null;
+
+        if ($status){
+            if ($status == 'Menunggu'){
+                $codeStatus = 0;
+            }elseif ($status == 'Proses Desain'){
+                $codeStatus = 1;
+            }elseif ($status == 'Proses Pengerjaan'){
+                $codeStatus = 2;
+            }elseif ($status == 'Dikirim'){
+                $codeStatus = 3;
+            }elseif ($status == 'Diterima'){
+                $codeStatus = 4;
+            }
+            $pesanan->where('status_pengerjaan','=',$codeStatus);
+        }
+        $pesanan = $pesanan->paginate(10);
+//        $pesanan = $pesanan;
         $dataPesanan = [];
         foreach ($pesanan as $key => $p) {
             if ($p->custom) {
@@ -34,7 +54,6 @@ class PesananController extends CustomController
                 $dataPesanan[$key] = Arr::add($dataPesanan[$key], 'jenis', $jenis);
                 $dataPesanan[$key] = Arr::add($dataPesanan[$key], 'kategori', $kategori);
                 $dataPesanan[$key] = Arr::set($dataPesanan[$key], 'custom', $dataCustom);
-
             }
         }
 

@@ -52,7 +52,7 @@
                                 class="rounded-circle" style="height: 300px; width: 300px"/>
                        </div>
                         <div class="my-3">
-                            <input type="file" class="form-control" name="image" id="image">
+                            <input type="file" class="form-control" name="image" id="image" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                     </form>

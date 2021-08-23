@@ -112,11 +112,11 @@
                             '                             src="' + value['url_gambar'] + '" />\n' +
                             '                        <div class="ms-4">\n' +
                             '                            <p class="title">' + produkName + '</p>\n' +
-                            '                            <p class="title">' + produkName + '</p>\n' +
                             '                            <p class="qty">Qty : ' + value['qty'] + '</p>\n' +
                             '                            <p class="keterangan">' + value['keterangan'] + '</p>\n' +
                             '                            <p class="totalHarga">Rp. ' + totalHarga + '</p>\n' +
                             '                        </div>\n' +
+                            '                        <div class="ms-auto"><a class="btn btn-warning btn-sm" data-name="'+produkName+'" data-id="'+value['id']+'" style="color: white" id="deleteKeranjang"><i class="bx bxs-trash-alt" ></i></a></div>' +
                             '                    </div>\n' +
                             '                    <div class="d-flex">\n' +
                             '                       ' + button + ' \n' +
@@ -169,6 +169,12 @@
             saveData('Upload Bukti Transfer', 'formPayment', '/user/keranjang/upload-image', afterSave)
             return false;
         }
+
+        $(document).on('click','#deleteKeranjang', function () {
+            var id = $(this).data('id');
+            deleteData($(this).data('name'), '/user/keranjang/'+id+'/delete', afterSave)
+            return false;
+        })
 
     </script>
 

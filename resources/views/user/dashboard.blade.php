@@ -91,6 +91,10 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="d-flex justify-content-center mb-3">
+                            <img src="{{ asset('static-image/logo.png') }}" style="height: 40px;" />
+                        </div>
+                        <hr>
                         <table class="table" id="tabelInvoice">
                             <tr>
                                 <td>No. Pemesanan</td>
@@ -143,6 +147,14 @@
                                 <td id="totHarga" class="text-end  fw-bold"></td>
                             </tr>
                         </table>
+
+                        <div class="d-flex justify-content-end">
+                            <div>
+                                <h6 class="text-center">{{date('d F Y', strtotime(now('Asia/Jakarta')))}}</h6>
+                                <br>
+                                <h6 class="mt-3 text-center">Admin</h6>
+                            </div>
+                        </div>
 
                     </div>
                 </div>

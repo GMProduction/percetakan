@@ -24,6 +24,24 @@
             </div>
 
             {{--{{dump($data[1]->custom['jenis'])}}--}}
+            <div class="d-flex justify-content-end mb-3">
+                    <div class="mb-3">
+                        <label for="kategori" class="form-label">Status Pengerjaan</label>
+                        <div class="d-flex">
+                            <form id="formCari" action="">
+                                <select class="form-select" aria-label="Default select example" id="statusCari" name="status">
+                                    <option selected value="">Semua</option>
+                                    <option value="Menunggu">Menunggu</option>
+                                    <option value="Proses Desain">Proses Desain</option>
+                                    <option value="Proses Pengerjaan">Proses Pengerjaan</option>
+                                    <option value="Dikirim">Dikirim</option>
+                                    <option value="Diterima">Diterima</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+
             <table class="table table-striped table-bordered ">
                 <thead>
                 <tr>
@@ -409,12 +427,18 @@
 @section('script')
     <script>
         $(document).ready(function () {
+            $('#statusCari').val('{{request('status')}}')
+
         })
         var idpesanan;
         $(document).on('click', '#detailData', function () {
             idpesanan = $(this).data('id');
             getDetailPesanan(idpesanan)
             $('#detail').modal('show')
+        })
+
+        $(document).on('change', '#statusCari', function () {
+            document.getElementById('formCari').submit();
         })
 
         function afterAddHartga() {

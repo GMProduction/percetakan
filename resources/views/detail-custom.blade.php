@@ -60,7 +60,6 @@
                                     <option value="0">Tidak</option>
                                 </select>
                             </div>
-
                             <div class="mb-3">
                                 <label for="qty" class="form-label">Qty</label>
                                 <input type="number" class="form-control" id="qty" name="qty">

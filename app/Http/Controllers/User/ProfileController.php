@@ -38,11 +38,11 @@ class ProfileController extends CustomController
             ]
         );
 
-        $number    = strpos($field['no_hp'], "0") == 0 ? preg_replace('/0/', '62', $field['no_hp'], 1) : $field['no_hp'];
+        $number    = strpos($fieldPelanggan['no_hp'], "0") == 0 ? preg_replace('/0/', '62', $fieldPelanggan['no_hp'], 1) : $fieldPelanggan['no_hp'];
         $fieldData =
             [
-                'nama'     => $field['nama'],
-                'alamat'   => $field['alamat'],
+                'nama'     => $fieldPelanggan['nama'],
+                'alamat'   => $fieldPelanggan['alamat'],
                 'no_hp'    => $number,
             ];
 
