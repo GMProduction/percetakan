@@ -55,7 +55,7 @@
             $.get('/user/menunggu/get', async function (data) {
                 $('#dataPesanan').html('');
 
-                if (data.length > 0) {
+                if (data) {
 
                     await $.each(data, function (key, value) {
                         console.log(value)
@@ -69,15 +69,17 @@
                             bank = value['get_pembayaran']['id_bank'];
                             gambar = value['get_pembayaran']['url_gambar'];
                         }
+                        var status = value['status_bayar'] === 1 ? 'Diterima' : 'Menunggu';
                         $('#dataPesanan').append('<div class="item-box mb-3">\n' +
                             '                    <div class="d-flex">\n' +
                             '                        <img id=""\n' +
                             '                             src="' + value['url_gambar'] + '" />\n' +
                             '                        <div class="ms-4">\n' +
                             '                            <p class="title">' + produkName + '</p>\n' +
-                            '                            <p class="qty">' + value['qty'] + '</p>\n' +
+                            '                            <p class="qty">Qty : ' + value['qty'] + '</p>\n' +
                             '                            <p class="keterangan">' + value['keterangan'] + '</p>\n' +
-                            '                            <p class="totalHarga">Rp. ' + value['total_harga'].toLocaleString() + '</p>\n' +
+                            '                            <p class="totalHarga">Rp. ' + value['total_harga'].toLocaleString() + '</p> \n' +
+                            '                            <p class="keterangan">Status : ' + status  + '</p>\n' +
                             '                        </div>\n' +
                             '                    </div>\n' +
                             '                </div>')

@@ -144,6 +144,8 @@ function deleteData(text, url, resposeSuccess) {
                             }).then((dat) => {
                                 if (resposeSuccess) {
                                     resposeSuccess()
+                                } else {
+                                    window.location.reload()
                                 }
                             });
                         } else {

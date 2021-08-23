@@ -5,7 +5,29 @@
 
 
     <section class="container">
+        <div class="row item-box mb-5">
+            <p class="fw-bold">Pembayaran Bisa di Lakukan di</p>
 
+            @forelse($bank as $b)
+                <div class="item-box mb-2">
+                    <div class="d-flex">
+                        <img
+                            src="{{$b->url_gambar}}"/>
+                        <div class="ms-4 flex-fill">
+                            <div class="d-flex justify-content-between">
+                                <p class="title">{{$b->nama_bank}}</p>
+                            </div>
+                            <p class=" qty mb-0">Holder Name : {{$b->holder_bank}}</p>
+                            <p class="keterangan mb-3">No Rekening : {{$b->norek}}</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            @empty
+            @endforelse
+            <label class="fw-bold">Batas waktu pembayaran maksimal 1 x 24 jam</label>
+        </div>
         <div class="row">
             <div class="col-md-6 col-sm-12" id="dataPesanan">
 
@@ -64,7 +86,7 @@
             $.get('/user/keranjang/get', async function (data) {
                 $('#dataPesanan').html('');
 
-                if (data.length > 0) {
+                if (data) {
 
                     await $.each(data, function (key, value) {
                         console.log(value)
@@ -90,7 +112,8 @@
                             '                             src="' + value['url_gambar'] + '" />\n' +
                             '                        <div class="ms-4">\n' +
                             '                            <p class="title">' + produkName + '</p>\n' +
-                            '                            <p class="qty">' + value['qty'] + '</p>\n' +
+                            '                            <p class="title">' + produkName + '</p>\n' +
+                            '                            <p class="qty">Qty : ' + value['qty'] + '</p>\n' +
                             '                            <p class="keterangan">' + value['keterangan'] + '</p>\n' +
                             '                            <p class="totalHarga">Rp. ' + totalHarga + '</p>\n' +
                             '                        </div>\n' +

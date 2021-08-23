@@ -7,7 +7,11 @@
 @endsection
 
 @section('content')
-
+<style>
+    #tabelInvoice td {
+        border: none;
+    }
+</style>
     <section>
         <div style="height: 80px"></div>
 
@@ -23,7 +27,7 @@
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="category">Selamat datang Joko</p>
+                    <p class="category">Selamat datang {{auth()->user()->getPelanggan->nama}}</p>
                     <!-- Nav tabs -->
                     <div class="card" style="min-height: 34vh">
                         <div class="card-header">
@@ -79,7 +83,71 @@
 
             </div>
         </div>
+        <div class="modal fade" id="modalInvoice" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Invoice</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table" id="tabelInvoice">
+                            <tr>
+                                <td>No. Pemesanan</td>
+                                <td>:</td>
+                                <td id="noPesan"></td>
+                            </tr>
+                            <tr>
+                                <td>Nama Produk</td>
+                                <td>:</td>
+                                <td id="nama"></td>
+                            </tr>
+                            <tr>
+                                <td>Kategori Produk</td>
+                                <td>:</td>
+                                <td id="kategori"></td>
+                            </tr>
+                            <tr>
+                                <td>Jenis Kertas</td>
+                                <td>:</td>
+                                <td id="jenis"></td>
+                            </tr>
+                            <tr>
+                                <td>Laminasi</td>
+                                <td>:</td>
+                                <td id="laminasi"></td>
+                            </tr>
+                            <tr>
+                                <td>Harga Satuan</td>
+                                <td>:</td>
+                                <td id="hargaSatuan" class="text-end"></td>
+                            </tr>
+                            <tr>
+                                <td>Qty</td>
+                                <td>:</td>
+                                <td id="qty" class="text-end"></td>
+                            </tr>
+                            <tr>
+                                <td>Harga Laminasi</td>
+                                <td>:</td>
+                                <td id="hargaLaminasi" class="text-end"></td>
+                            </tr>
+                            <tr>
+                                <td>Ongkos Kirim</td>
+                                <td>:</td>
+                                <td id="ongkir" class="text-end" style="border-bottom: 1px solid #cccccc"></td>
+                            </tr>
+                            <tr>
+                                <td>Total Harga</td>
+                                <td>:</td>
+                                <td id="totHarga" class="text-end  fw-bold"></td>
+                            </tr>
+                        </table>
 
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </section>
@@ -110,6 +178,47 @@
                 arrows: false
             });
         });
+
+        $(document).on('click', '#invoice', function () {
+            getProduk($(this).data('id'))
+            $('#modalInvoice').modal('show')
+        })
+
+        function getProduk(id) {
+            $.get('/user/produk/' + id, function (data) {
+                console.log(data);
+                var produkName = 'Custom';
+                if (data['get_harga']) {
+                    produkName = data['get_harga']['get_produk']['nama_produk'];
+                }
+
+                var kategori = '',jenis, harga, hargalaminasi;
+                if (data['get_harga']) {
+                    kategori = data['get_harga']['get_produk']['get_kategori']['nama_kategori']
+                    jenis    = data['get_harga']['get_jenis']['nama_jenis']
+                    harga = data['get_harga']['harga']
+                    hargalaminasi = data['get_harga']['get_produk']['biaya_laminasi']
+                } else {
+                    kategori = data['kategori']['nama_kategori']
+                    jenis = data['jenis_kertas']['nama_jenis']
+                    harga = data['custom']['satuan']
+                    hargalaminasi = data['custom']['laminasi']
+                }
+                var laminasi = data['laminasi'] === 1 ? 'Ya' : 'Tidak';
+                $('#modalInvoice #noPesan').html(data['id'])
+                $('#modalInvoice #nama').html(produkName)
+                $('#modalInvoice #kategori').html(kategori)
+                $('#modalInvoice #jenis').html(jenis)
+                $('#modalInvoice #laminasi').html(laminasi)
+                $('#modalInvoice #qty').html(data['qty'].toLocaleString())
+                $('#modalInvoice #hargaSatuan').html(harga.toLocaleString())
+                $('#modalInvoice #hargaLaminasi').html(hargalaminasi.toLocaleString())
+                $('#modalInvoice #ongkir').html(data['biaya_ongkir'].toLocaleString())
+                $('#modalInvoice #totHarga').html(data['total_harga'].toLocaleString())
+
+            })
+        }
+
     </script>
 
     @yield('scriptUser')

@@ -21,7 +21,6 @@
                     <th>Qty</th>
                     <th>Total Harga</th>
                     <th>Tanggal</th>
-                    <th>Status</th>
                 </tr>
                 </thead>
 
@@ -34,7 +33,6 @@
                         <td>{{$d->qty}}</td>
                         <td>Rp. {{$d->total_harga ? number_format($d->total_harga,0) : '-'}}</td>
                         <td>{{date('d F Y', strtotime($d->tanggal_pesan))}}</td>
-                        <td>{{$d->status_pengerjaan == 0 ? ($d->getPembayaran ? 'Menunggu Konfirmasi' : 'Menunggu Pembayaran')  : ($d->status_pengerjaan == 1 ? 'Proses Desain' : ($d->status_pengerjaan == 2 ? 'Proses Pengerjaan' : ($d->status_pengerjaan == 3 ? 'Pengiriman' : 'Diterima')))}}</td>
                     </tr>
                 @empty
                     <tr>

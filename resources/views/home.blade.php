@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="grid">
                     @forelse($kategori as $k)
-                        <figure class="effect-honey">
+                        <figure class="effect-honey" style="height: 200px">
                             <img src="{{asset($k->url_gambar)}}"/>
                             <figcaption>
                                 <h2>{{$k->nama_kategori}}</h2>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Peminjaman Alat</title>
+    <title>Login</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,9 +45,9 @@
 					<br>
 					<form class="text-center" id="form" method="post">
                         @csrf
-						<input class="form-control border-0" type="" name="username" placeholder="Type Your Username">
+						<input class="form-control border-0" type="text" name="username" placeholder="Type Your Username">
 						<br>
-						<input class="form-control border-0" type="" name="password" placeholder="Type Your Password">
+						<input class="form-control border-0" type="password" name="password" placeholder="Type Your Password">
 						<br>
 						<button class="btn btn-primary btn-sm border-0" type="submit" name="submit">Login</button>
 						<span class="d-block mt-2">Anda Pengguna Baru ?<a class="ms-2 link" href="/register-page">Buat akun.</a></span>

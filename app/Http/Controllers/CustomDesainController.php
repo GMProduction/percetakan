@@ -27,7 +27,7 @@ class CustomDesainController extends CustomController
                 'alamat'            => $this->request->get('alamat'),
                 'id_pelanggan'      => Auth::id(),
                 'status_pengerjaan' => 0,
-                'status_desain' => 0,
+                'status_desain' => null,
                 'status_bayar' => 0
 
             ];

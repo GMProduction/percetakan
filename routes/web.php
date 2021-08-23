@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HargaController;
 use App\Http\Controllers\Admin\JenisKertasController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\PelangganController;
 use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\ProductController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\PelangganMiddleware;
+use App\Models\Bank;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,7 +58,8 @@ Route::prefix('/user')->middleware(PelangganMiddleware::class)->group(function (
 
     Route::prefix('/keranjang')->group(function (){
         Route::get('/', function () {
-            return view('user.keranjang');
+            $bank = Bank::all();
+            return view('user.keranjang')->with(['bank' => $bank]);
         });
         Route::get('/get',[UserController::class,'keranjang']);
         Route::post('/upload-image',[UserController::class,'uploadPayment']);
@@ -99,6 +102,8 @@ Route::prefix('/user')->middleware(PelangganMiddleware::class)->group(function (
         Route::get('/get', [UserController::class,'selesai']);
 
     });
+
+    Route::get('/produk/{id}', [UserController::class,'getProductId']);
 
     Route::prefix('/profile')->group(function (){
         Route::get('/', function () {
@@ -143,6 +148,8 @@ Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function (){
     });
 
     Route::match(['post','get'],'/baner', [BanerController::class,'index']);
+    Route::get('/baner/{id}/delete', [BanerController::class,'delete']);
+    Route::get('/laporan', [LaporanController::class,'index']);
 
 
 });

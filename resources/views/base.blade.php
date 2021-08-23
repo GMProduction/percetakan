@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Percetakan</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,8 +32,12 @@
                     <a href="/">
                         <img src="{{ asset('static-image/logo.png') }}" style="height: 40px;" />
 
+
                     </a>
 
+                </div>
+                <div class="ms-5">
+                    <h5>Sistem Informasi Pemesanan Jasa Cetak</h5>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,9 +75,23 @@
                     </div>
 
                     @if (auth()->user())
-                        <a href="/{{auth()->user()->roles}}">
-                            <img class="profile-userpic" src="{{ asset('static-image/profile.png') }}" />
+                        <a style="position: relative;" href="/user/keranjang">
+                            <i class='bx bx-cart-alt profile-userpic me-3' style="font-size: 1.7rem; position: relative;">
+                                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden">New alerts</span>
+                                  </span>
+                            </i>
                         </a>
+                        <div class="dropdown">
+                            <a class=" dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="profile-userpic" src="{{ asset('static-image/profile.png') }}"/>
+                            </a>
+                            <div class="dropdown-menu  dropdown-menu-right">
+                                <a href="/{{auth()->user()->roles}}" class="dropdown-item" >Dashboard</a>
+                                <a href="/logout" class="dropdown-item" >Logout</a>
+                            </div>
+                        </div>
+
                     @else
                         <a href="/login" type="button" class="btn btn-outline-primary btn-sm">Login</a>
                     @endif
@@ -86,7 +104,7 @@
     <main>
 
         <div class="content-wrapper">
-            <a class="tombol-wa">
+            <a class="tombol-wa" target="_blank" href="https://wa.me/send?phone=6289654649151">
                 <img src="{{ asset('static-image/WhatsApp.png') }}" />
             </a>
             @yield('content')
@@ -202,7 +220,12 @@
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('slick/slick.min.js') }}"></script>
     <script src="{{ asset('js/dialog.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown()
 
+    })
+</script>
     @yield('script')
 
 

@@ -37,6 +37,15 @@ class ProfileController extends CustomController
                 'no_hp'  => 'required',
             ]
         );
+
+        $number    = strpos($field['no_hp'], "0") == 0 ? preg_replace('/0/', '62', $field['no_hp'], 1) : $field['no_hp'];
+        $fieldData =
+            [
+                'nama'     => $field['nama'],
+                'alamat'   => $field['alamat'],
+                'no_hp'    => $number,
+            ];
+
         $cekUser        = User::where([['id', '!=', Auth::id()], ['username', '=', $field['username']]])->first();
         if ($cekUser) {
             return response()->json(
@@ -61,7 +70,7 @@ class ProfileController extends CustomController
             );
         }
 
-        $user->getPelanggan()->update($fieldPelanggan);
+        $user->getPelanggan()->update($fieldData);
 
         return response()->json('berhasil', 200);
     }
