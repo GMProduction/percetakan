@@ -14,6 +14,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CustomDesainController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LaporanController as ControllersLaporanController;
 use App\Http\Controllers\RajaOngkirController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\UserController;

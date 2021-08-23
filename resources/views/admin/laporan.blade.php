@@ -9,7 +9,23 @@
 
         <div class="table-container">
 
-            <h5 class="mb-3">Laporan Pendapatan</h5>
+           
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5>Laporan Penjualan</h5>
+                <div class="d-flex align-items-center">
+                    <i class='bx bx-calendar me-2' style="font-size: 1.4rem"></i>
+
+                    <div class="me-2">
+                        <div class="input-group input-daterange">
+                            <input type="text" class="form-control me-2" value="2012-04-05">
+                            <div class="input-group-addon">to</div>
+                            <input type="text" class="form-control ms-2" value="2012-04-19">
+                        </div>
+                    </div>
+
+                    <a class="btn btn-warning" href="/cetaklaporan/{date}">Cetak</a>
+                </div>
+            </div>
 
             <table class="table table-striped table-bordered ">
                 <thead>
@@ -65,5 +81,11 @@
 
 @section('script')
 
+<script>
+$('.input-daterange input').each(function() {
+    $(this).datepicker('clearDates');
+    format: "dd-mm-yyyy"
+});
+</script>
 
 @endsection

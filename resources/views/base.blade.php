@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('slick/slick-theme.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
     <script src="{{ asset('js/swal.js') }}"></script>
 
     @yield('moreCss');
@@ -94,6 +95,7 @@
 
                     @else
                         <a href="/login" type="button" class="btn btn-outline-primary btn-sm">Login</a>
+                       
                     @endif
 
                 </div>
@@ -219,6 +221,7 @@
     <script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('slick/slick.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ asset('js/dialog.js') }}"></script>
 <script>
     $(document).ready(function () {
