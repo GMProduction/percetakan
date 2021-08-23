@@ -165,6 +165,7 @@ Route::get('/baner', [HomeController::class,'baner']);
 
 
 
+Route::get('/cetaklaporan/{date}', [LaporanController::class, 'cetakLaporan'])->name('cetakLaporan');
 
 Route::post('/register',[AuthController::class,'register']);
 
