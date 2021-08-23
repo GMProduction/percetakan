@@ -55,9 +55,7 @@
             <div class="d-flex justify-content-end">
                 <h5>Total Pendapatan : Rp. {{number_format($total, 0)}}</h5>
             </div>
-
         </div>
-
     </section>
 
 

@@ -8,10 +8,11 @@
     <section>
         <div style="height: 80px"></div>
 
-
-        <div class="slider">
-            <img src="{{$kategori ? $kategori->url_gambar : 'https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg'}}" alt="img04"/>
-        </div>
+        @if($kategori)
+            <div class="slider">
+                <img src="{{$kategori ? $kategori->url_gambar : 'https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg'}}" alt="img04"/>
+            </div>
+        @endif
         <div style="height: 50px"></div>
     </section>
     <section class="container">
@@ -47,7 +48,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Form Register</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Pembayaran</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

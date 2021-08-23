@@ -19,6 +19,7 @@ use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\PelangganMiddleware;
+use App\Http\Middleware\PimpinanMiddleware;
 use App\Models\Bank;
 use Illuminate\Support\Facades\Route;
 
