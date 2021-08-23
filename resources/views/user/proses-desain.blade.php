@@ -152,6 +152,6 @@ var idpesanan;
             $('#desain').modal('hide')
             getData()
         }
-    </script>
+     </script>
 
 @endsection

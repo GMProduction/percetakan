@@ -44,4 +44,18 @@ class LaporanController extends Controller
         ];
         return view('admin.laporan')->with($data);
     }
+
+    public function cetakLaporan(Request $request)
+    {
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->dataLaporan($request))->setPaper('F4', 'landscape');
+        return $pdf->stream();
+    }
+
+    public function dataLaporan($date)
+    {
+     
+        return view('admin/cetaklaporan');
+    }
 }
