@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mx-2">Cari</button>
-                        <a class="btn btn-warning" id="cetak">Cetak</a>
+                        <a class="btn btn-warning" id="cetak" target="_blank">Cetak</a>
                     </div>
                 </form>
 
