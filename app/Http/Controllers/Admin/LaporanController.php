@@ -79,10 +79,10 @@ class LaporanController extends Controller
     {
         $start = \request('start');
         $end = \request('end');
-        $pesanan = $this->getPesanan(\request('start'), \request('end'));
+        $pesanan = $this->getPesanan($start, $end);
         $total   = Pesanan::where('status_pengerjaan', '=', 4);
         if ($start) {
-            $pesanan = $total->whereBetween('tanggal_pesan', [date('Y-m-d', strtotime($start)), date('Y-m-d', strtotime($end))]);
+            $total = $total->whereBetween('tanggal_pesan', [date('Y-m-d', strtotime($start)), date('Y-m-d', strtotime($end))]);
         }
         $total = $total->sum('total_harga');
         $data = [
