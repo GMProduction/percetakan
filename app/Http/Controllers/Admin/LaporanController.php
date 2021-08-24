@@ -77,11 +77,19 @@ class LaporanController extends Controller
 
     public function dataLaporan()
     {
+        $start = \request('start');
+        $end = \request('end');
         $pesanan = $this->getPesanan(\request('start'), \request('end'));
+        $total   = Pesanan::where('status_pengerjaan', '=', 4);
+        if ($start) {
+            $pesanan = $total->whereBetween('tanggal_pesan', [date('Y-m-d', strtotime($start)), date('Y-m-d', strtotime($end))]);
+        }
+        $total = $total->sum('total_harga');
         $data = [
             'start' => \request('start'),
             'end' => \request('end'),
-            'data' => $pesanan
+            'data' => $pesanan,
+            'total' => $total
         ];
 
         return view('admin/cetaklaporan')->with($data);
