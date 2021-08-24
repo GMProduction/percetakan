@@ -9,22 +9,23 @@
 
         <div class="table-container">
 
-           
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5>Laporan Penjualan</h5>
-                <div class="d-flex align-items-center">
-                    <i class='bx bx-calendar me-2' style="font-size: 1.4rem"></i>
-
-                    <div class="me-2">
-                        <div class="input-group input-daterange">
-                            <input type="text" class="form-control me-2" value="2012-04-05">
-                            <div class="input-group-addon">to</div>
-                            <input type="text" class="form-control ms-2" value="2012-04-19">
+                <form id="formTanggal">
+                    <div class="d-flex align-items-center">
+                        <i class='bx bx-calendar me-2' style="font-size: 1.4rem"></i>
+                        <div class="me-2">
+                            <div class="input-group input-daterange">
+                                <input type="text" class="form-control me-2" name="start" value="{{request('start')}}">
+                                <div class="input-group-addon">to</div>
+                                <input type="text" class="form-control ms-2" name="end" value="{{request('end')}}">
+                            </div>
                         </div>
+                        <button type="submit" class="btn btn-success mx-2">Cari</button>
+                        <a class="btn btn-warning" id="cetak">Cetak</a>
                     </div>
+                </form>
 
-                    <a class="btn btn-warning" href="/cetaklaporan/{date}">Cetak</a>
-                </div>
             </div>
 
             <table class="table table-striped table-bordered ">
@@ -60,7 +61,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="8">Tidak ada pesanan</td>
+                        <td class="text-center" colspan="11">Tidak ada pesanan</td>
                     </tr>
                 @endforelse
 
@@ -79,11 +80,20 @@
 
 @section('script')
 
-<script>
-$('.input-daterange input').each(function() {
-    $(this).datepicker('clearDates');
-    format: "dd-mm-yyyy"
-});
-</script>
+    <script>
+        $('.input-daterange input').each(function () {
+            $(this).datepicker({
+                // 'clearDates',
+                {{--date: '{{request('start')}}'--}}
+                // format: "dd-mm-yyyy"
+
+            });
+        });
+
+        $(document).on('click','#cetak', function () {
+            console.log('/cetaklaporan?'+$('#formTanggal').serialize());
+            $(this).attr('href', '/admin/cetaklaporan?'+$('#formTanggal').serialize());
+        })
+    </script>
 
 @endsection

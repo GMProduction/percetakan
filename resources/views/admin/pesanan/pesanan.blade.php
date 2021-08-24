@@ -25,21 +25,21 @@
 
             {{--{{dump($data[1]->custom['jenis'])}}--}}
             <div class="d-flex justify-content-end mb-3">
-                    <div class="mb-3">
-                        <label for="kategori" class="form-label">Status Pengerjaan</label>
-                        <div class="d-flex">
-                            <form id="formCari" action="">
-                                <select class="form-select" aria-label="Default select example" id="statusCari" name="status">
-                                    <option selected value="">Semua</option>
-                                    <option value="Menunggu">Menunggu</option>
-                                    <option value="Proses Desain">Proses Desain</option>
-                                    <option value="Proses Pengerjaan">Proses Pengerjaan</option>
-                                    <option value="Dikirim">Dikirim</option>
-                                    <option value="Diterima">Diterima</option>
-                                </select>
-                            </form>
-                        </div>
+                <div class="mb-3">
+                    <label for="kategori" class="form-label">Status Pengerjaan</label>
+                    <div class="d-flex">
+                        <form id="formCari" action="">
+                            <select class="form-select" aria-label="Default select example" id="statusCari" name="status">
+                                <option selected value="">Semua</option>
+                                <option value="Menunggu">Menunggu</option>
+                                <option value="Proses Desain">Proses Desain</option>
+                                <option value="Proses Pengerjaan">Proses Pengerjaan</option>
+                                <option value="Dikirim">Dikirim</option>
+                                <option value="Diterima">Diterima</option>
+                            </select>
+                        </form>
                     </div>
+                </div>
             </div>
 
             <table class="table table-striped table-bordered ">
@@ -54,7 +54,9 @@
                     <th>Status Pengerjaan</th>
                     <th>Status Desain</th>
                     <th>Status Pembayaran</th>
-                    <th>Action</th>
+                    @if(auth()->user()->roles == 'admin')
+                        <th>Action</th>
+                    @endif
                 </tr>
                 </thead>
                 @forelse($data as $key => $d)
@@ -69,6 +71,8 @@
                         <td>{{$d->status_pengerjaan == 0 ? ($d->getPembayaran ? 'Menunggu Konfirmasi' : 'Menunggu Pembayaran') : ($d->status_pengerjaan == 1 ? 'Proses Desain' : ($d->status_pengerjaan == 2 ? 'Proses Pengerjaan' : ($d->status_pengerjaan == 3 ? 'Pengiriman' : ($d->status_pengerjaan == 4 ? 'Diterima' : 'Menunggu Pembayaran'))))}}</td>
                         <td>{{$d->status_desain === 0 ? 'Proses Desain' : ($d->status_desain === 1 ? 'Desain Dikirim' : ($d->status_desain === 2 ? 'Desain Ditolak' : ($d->status_desain === 3 ? 'Desain Diterima' : 'Menunggu Pembayaran')))}}</td>
                         <td>{{$d->status_bayar == 0 ? 'Belum' : 'Lunas'}}</td>
+                        @if(auth()->user()->roles == 'admin')
+
                         <td>
                             @if( $d->getHarga || isset($d->custom['satuan']))
                                 <button type="button" class="btn btn-success btn-sm m-1" id="detailData" data-id="{{$d->id}}">Detail
@@ -85,6 +89,7 @@
                                 </button>
                             @endif
                         </td>
+                            @endif
                     </tr>
                 @empty
                     <tr>
@@ -99,7 +104,6 @@
 
 
         <div>
-
 
 
             <!-- Modal Detail-->
@@ -446,11 +450,11 @@
         }
 
         $(document).on('click', '#detailPengiriman', function () {
-            $.get('/admin/pesanan/'+idpesanan+'/expedisi', function (data) {
+            $.get('/admin/pesanan/' + idpesanan + '/expedisi', function (data) {
                 $('#expedisi').val(data['nama'])
                 $('#layanan').val(data['service'])
-                $('#estimasi').val(data['estimasi']+' Hari')
-                $('#tujuan').val(data['nama_kota']+', '+data['nama_propinsi'])
+                $('#estimasi').val(data['estimasi'] + ' Hari')
+                $('#tujuan').val(data['nama_kota'] + ', ' + data['nama_propinsi'])
                 $('#alamatDetail').val($('#detail #detailAlamat').val())
                 $('#modalDetailPengiriman #biaya').val(data['biaya'].toLocaleString())
             })
@@ -491,7 +495,7 @@
             var satuan = $('#hHargaSatuan').val() === '' ? 0 : parseInt($('#hHargaSatuan').val());
             var laminasi = $('#hHargaLaminasi').val() === '' ? 0 : parseInt($('#hHargaLaminasi').val());
             var qty = parseInt($('#hQty').val());
-            var ongkir = parseInt($('#hBiayaOngkir').val().replace(',',''));
+            var ongkir = parseInt($('#hBiayaOngkir').val().replace(',', ''));
             var total = (((satuan + laminasi) * qty) + ongkir);
 
             $('#hTotalHarga').val(total.toLocaleString())
@@ -519,8 +523,8 @@
                 $('#statusPembayaran').html('')
                 $('#btnKonfirmasi').removeClass('d-none')
                 var btnProses;
-            console.log(data)
-                if (!data['get_pembayaran']){
+                console.log(data)
+                if (!data['get_pembayaran']) {
                     $('#btnKonfirmasi').addClass('d-none')
                 }
                 if (data['status_bayar'] === 1) {
@@ -597,8 +601,8 @@
                 $('#modalbuatharga #hJenisKertas').val(data['get_harga'] ? data['get_harga']['get_jenis']['nama_jenis'] : data['jenis']['nama_jenis']);
                 $('#modalbuatharga #hQty').val(data['qty']);
                 $('#modalbuatharga #hBiayaOngkir').val(data['biaya_ongkir'].toLocaleString());
-                $('#modalbuatharga #hHargaLaminasi').attr('readonly','');
-                if (data['laminasi'] === 1){
+                $('#modalbuatharga #hHargaLaminasi').attr('readonly', '');
+                if (data['laminasi'] === 1) {
                     $('#modalbuatharga #hHargaLaminasi').removeAttr('readonly');
                 }
                 $('#modalbuatharga #hKeterangan').val(data['keterangan']);

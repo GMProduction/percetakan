@@ -154,6 +154,7 @@ Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function (){
     Route::get('/baner/{id}/delete', [BanerController::class,'delete']);
     Route::get('/laporan', [LaporanController::class,'index']);
 
+    Route::get('/cetaklaporan', [LaporanController::class, 'cetakLaporan'])->name('cetakLaporan');
 
 });
 
@@ -168,7 +169,6 @@ Route::get('/baner', [HomeController::class,'baner']);
 
 
 
-Route::get('/cetaklaporan/{date}', [LaporanController::class, 'cetakLaporan'])->name('cetakLaporan');
 
 Route::post('/register',[AuthController::class,'register']);
 

@@ -52,7 +52,11 @@
         <div>
             <h4 style=" text-align: right;margin-bottom:0;margin-top:0">Laporan Penjualan</h4>
             <h5 style=" text-align: right;margin-bottom:0;margin-top:0">Periode</h5>
-            <h5 style=" text-align: right;margin-bottom:0;margin-top:0">20-08-2021 - 23-08-2021</h5>
+            @if($start)
+                <h5 style=" text-align: right;margin-bottom:0;margin-top:0">{{date('d F Y', strtotime($start))}} - {{date('d F Y', strtotime($end))}}</h5>
+                @else
+                <h5 style=" text-align: right;margin-bottom:0;margin-top:0">Semua</h5>
+            @endif
         </div>
 
         <br>
@@ -76,41 +80,45 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td data-label="Period">1</td>
-                <td data-label="Period">Joko</td>
-                <td data-label="Period">Undangan</td>
-                <td data-label="Period">Undangan 1</td>
-                <td data-label="Period">03/31/2016 20:00:00</td>
-                <td data-label="Period">03/31/2016 22:00:00</td>
-                <td data-label="Period">03/31/2016 22:00:00</td>
-                <td data-label="Period">2000</td>
-                <td data-label="Period">10</td>
-                <td data-label="Period">5000</td>
-                <td data-label="Period">100000</td>
-              </tr>
-             
+              @forelse($data as $key => $d)
+
+                  <tr>
+                      <td>{{$key+1}}</td>
+                      <td>{{$d->getUser->getPelanggan->nama ?? ''}}</td>
+                      <td>{{$d->getHarga ? $d->getHarga->getProduk->getKategori->nama_kategori : $d->kategori->nama_kategori}}</td>
+                      <td>{{$d->getHarga ? $d->getharga->getProduk->nama_produk : 'Custom' }}</td>
+                      <td>{{date('d F Y', strtotime($d->tanggal_pesan))}}</td>
+                      <td>{{date('d F Y', strtotime($d->getPembayaran->created_at))}}</td>
+                      <td>{{date('d F Y', strtotime($d->updated_at))}}</td>
+                      <td class="text-end">Rp. {{number_format($d->harga_satuan,0)}}</td>
+                      <td>{{$d->qty}}</td>
+                      <td class="text-end">Rp. {{number_format($d->biaya_ongkir,0)}}</td>
+                      <td class="text-end">Rp. {{$d->total_harga ? number_format($d->total_harga,0) : '-'}}</td>
+                  </tr>
+              @empty
+                  <tr>
+                      <td class="text-center" colspan="10">Tidak ada pesanan</td>
+                  </tr>
+              @endforelse
             </tbody>
           </table>
 
-    
+
           <div style="right:10px;width: 300px;display: inline-block;margin-top:70px">
             <p class="text-center mb-5">Pimpinan</p>
             <p class="text-center">( ........................... )</p>
         </div>
-        
+
         <div style="left:10px;width: 300px; margin-left : 100px;display: inline-block">
             <p class="text-center mb-5">Admin</p>
-            <p class="text-center">(
-        {{--        {{auth()->user()->username}}--}}
-                )</p>
+            <p class="text-center">( {{auth()->user()->username}} )</p>
         </div>
-        
-        
+
+
         <footer class="footer">
             @php $date = new DateTime("now", new DateTimeZone('Asia/Bangkok') ); @endphp
             <p class="text-right small mb-0 mt-0 pt-0 pb-0"> di cetak oleh :
-        {{--        {{auth()->user()->username}}--}}
+                {{auth()->user()->username}}
             </p>
             <p class="text-right small mb-0 mt-0 pt-0 pb-0"> tgl: {{ $date->format('d F Y, H:i:s') }} </p>
         </footer>

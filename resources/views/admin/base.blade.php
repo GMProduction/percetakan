@@ -32,15 +32,15 @@
     <div class="side-navbar active-nav d-flex justify-content-between  flex-wrap flex-column" id="sidebar">
         <ul class="nav flex-column text-white w-100 h-100">
             <a href="#" class="nav-link h3 text-white my-2">
-                Percetakan
+                {{auth()->user()->roles}}
             </a>
-
             <a href="/admin">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bxs-dashboard"></i>
                     <span class="mx-2">Dashboard</span>
                 </li>
             </a>
+            @if(auth()->user()->roles == 'admin')
             <a href="/admin/kategori">
                 <li href="#" class="nav-link t-white">
                     <i class='bx bx-cube-alt' ></i>
@@ -82,7 +82,7 @@
                 </li>
 
             </a>
-
+@endif
             <a href="/admin/pesanan">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bxs-file"></i>
